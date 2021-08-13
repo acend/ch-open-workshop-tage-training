@@ -1,10 +1,3 @@
-# changeme 
-# Change the following parts to your current installation
-# - Helm Target Namespace
-# - Repository: you might need to change the name of your repository, depending on the choosen name
-# - Secrets
-#   - QUAYIO_API_TOKEN is needed for house keeping and removing old tagged images
-#   - KUBECONFIG_TEST content of the Kubeconfig File, Account must have access to the k8s namespace. It's used in the helm steps
 name: PRCleanup
 on:
   pull_request:
@@ -40,7 +33,7 @@ jobs:
         name: Remove PR Environment Helm Release
         env:
           TRAINING_HELM_RELEASE: 'pr-${{ github.event.pull_request.number }}'
-          TRAINING_NAMESPACE: 'acend-hugo-training-template-test' # changeme
+          TRAINING_NAMESPACE: 'acend-ch-open-workshop-tage-training-test'
           TRAINING_VERSION: '${{ github.sha }}'
         run: |
           helm uninstall $TRAINING_HELM_RELEASE --kubeconfig $HOME/.kube/config  --namespace=$TRAINING_NAMESPACE
