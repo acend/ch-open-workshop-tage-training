@@ -1,7 +1,7 @@
 ---
-title: "5. Scaling"
-weight: 5
-sectionnumber: 5
+title: "4. Scaling"
+weight: 4
+sectionnumber: 4
 ---
 
 In this lab, we are going to show you how to scale applications on {{% param distroName %}}. Furthermore, we show you how {{% param distroName %}} makes sure that the number of requested Pods is up and running and how an application can tell the platform that it is ready to receive requests.
@@ -129,16 +129,7 @@ kubectl expose deployment example-web-python --type="ClusterIP" --name="example-
 
 and we need to create an Ingress to access the application:
 
-{{% onlyWhenNot customer %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/05/ingress.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/05/ingress-mobi.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
-{{% onlyWhen netcetera %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/05/ingress-netcetera.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
+{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/ingress_example-web-python.yaml" >}}{{< /highlight >}}
 
 Apply this Ingress definition using, e.g., `kubectl create -f ingress.yml --namespace <namespace>`
 
@@ -523,4 +514,4 @@ Observe how {{% param distroName %}} instantly creates a new Pod in order to ful
 
 You should now have the following resources in place:
 
-* [example-web-python.yaml](example-web-python.yaml)
+* [example-web-python.yaml](resources/example-web-python-lab04.yaml)

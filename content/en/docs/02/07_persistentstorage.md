@@ -1,10 +1,10 @@
 ---
-title: "8. Persistent storage"
-weight: 8
-sectionnumber: 8
+title: "7. Persistent storage"
+weight: 7
+sectionnumber: 7
 ---
 
-By default, data in containers is not persistent as was the case e.g. in [lab 7](../07/). This means that data that was written in a container is lost as soon as it does not exist anymore. We want to prevent this from happening. One possible solution to this problem is to use persistent storage.
+By default, data in containers is not persistent as was the case e.g. in [lab 6](./06_attachingadatabase/). This means that data that was written in a container is lost as soon as it does not exist anymore. We want to prevent this from happening. One possible solution to this problem is to use persistent storage.
 
 
 ## Request storage
@@ -16,12 +16,7 @@ The PersistentVolumeClaim only represents a request but not the storage itself. 
 
 ## Attaching a volume to a Pod
 
-{{% onlyWhenNot openshift %}}
-In a second step, the PVC from before is going to be attached to the Pod. In [lab 5](../05/) we edited the deployment configuration in order to insert a readiness probe. We are now going to do the same for inserting the persistent volume.
-{{% /onlyWhenNot %}}
-{{% onlyWhen openshift %}}
-In a second step, the PVC from before is going to be attached to the Pod. In [lab 5](../05/) we used `{{% param cliToolName %}} set` to add a readiness probe to the Deployment. We are now going to do the same and insert the PersistentVolume.
-{{% /onlyWhen %}}
+In a second step, the PVC from before is going to be attached to the Pod. In [lab 4](./04_scaling/) we edited the deployment configuration in order to insert a readiness probe. We are now going to do the same for inserting the persistent volume.
 
 
 ## Task {{% param sectionnumber %}}.1: Add a PersistentVolume
@@ -45,7 +40,7 @@ Because we just changed the DeploymentConfig with the `oc set` command, a new Po
 The following command creates a PersistentVolumeClaim which requests a volume of 1Gi size.  
 Save it to `pvc.yaml`:
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/08/pvc.yaml" >}}{{< /highlight >}}
+{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/pvc.yaml" >}}{{< /highlight >}}
 
 And create it with:
 
@@ -127,7 +122,7 @@ Check the logs from the container and search for the error.
 ```
 
 {{% alert title="Note" color="primary" %}}
-If the container won't start because the data directory already has files in it, use the `{{% onlyWhenNot openshift %}}kubectl exec{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}oc debug{{% /onlyWhen %}}` command mentioned in [lab 7](../07.0/) to check its content and remove it if necessary.{{% /alert %}}
+If the container won't start because the data directory already has files in it, use the `{{% onlyWhenNot openshift %}}kubectl exec{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}oc debug{{% /onlyWhen %}}` command mentioned in [lab 6](./06_attachingadatabase/) to check its content and remove it if necessary.{{% /alert %}}
 
 
 ## Task {{% param sectionnumber %}}.2: Persistence check
@@ -135,7 +130,7 @@ If the container won't start because the data directory already has files in it,
 
 ### Restore data
 
-Repeat [task 7.4](../07/#task-74-import-a-database-dump).
+Repeat [task 6.4](./06_attachingadatabase/#task-64-import-a-database-dump).
 
 
 ### Test
@@ -147,12 +142,6 @@ Scale your MariaDB Pod to 0 replicas and back to 1. Observe that the new Pod did
 
 You should now have the following resources in place:
 
-* [pvc.yaml](pvc.yaml)
-* {{% onlyWhenNot openshift %}}
-  {{% onlyWhenNot customer %}}[mariadb.yaml](mariadb.yaml){{% /onlyWhenNot %}}
-  {{% onlyWhen customer %}}[mariadb-{{% param customer %}}.yaml](mariadb-{{% param customer %}}.yaml){{% /onlyWhen %}}
-  {{% /onlyWhenNot %}}
-  {{% onlyWhen openshift %}}[mariadb-openshift.yaml](mariadb-openshift.yaml){{% /onlyWhen %}}
-
-
-* [example-web-python.yaml](../07/example-web-python.yaml) (from lab 7)
+* [pvc.yaml](resources/pvc.yaml)
+* [mariadb.yaml](resources/mariadb_lab07.yaml)
+* [example-web-python.yaml](resources/example-web-python-lab06.yaml) (from lab 6)

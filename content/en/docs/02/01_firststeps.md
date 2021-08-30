@@ -1,14 +1,10 @@
 ---
-title: "2. First steps"
-weight: 2
-sectionnumber: 2
+title: "1. First steps"
+weight: 1
+sectionnumber: 1
 ---
 
 In this lab, we will interact with the {{% param distroName %}} cluster for the first time.
-
-{{% alert title="Warning" color="secondary" %}}
-Please make sure you completed [the setup](../../setup/) before you continue with this lab.
-{{% /alert %}}
 
 
 ## Login
@@ -145,7 +141,7 @@ SET KUBE_CONTEXT=[Insert output of the upper command]
 kubectl config set-context %KUBE_CONTEXT% --namespace <namespace>
 ```
 
-Some prefer to explicitly select the Namespace for each `kubectl` command by adding `--namespace <namespace>` or `-n <namespace>`. Others prefer helper tools like `kubens` (see [lab 2](../02/)).
+Some prefer to explicitly select the Namespace for each `kubectl` command by adding `--namespace <namespace>` or `-n <namespace>`. Others prefer helper tools like `kubens`.
 {{% /alert %}}
 
 {{% onlyWhen rancher %}}

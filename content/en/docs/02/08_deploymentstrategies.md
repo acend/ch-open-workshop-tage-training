@@ -1,7 +1,7 @@
 ---
-title: "10. Deployment strategies"
-weight: 10
-sectionnumber: 10
+title: "8. Deployment strategies"
+weight: 8
+sectionnumber: 8
 ---
 
 In this lab, we are going to have a look at the different Deployment strategies.
@@ -11,4 +11,4 @@ This [document](https://www.cncf.io/wp-content/uploads/2018/03/CNCF-Presentation
 
 ## Task {{% param sectionnumber %}}.1: Apply deployment strategies
 
-Apply some deployment strategies to the example from [lab 5](../05).
+Apply some deployment strategies to the example from [lab 4](./04_scaling/).
