@@ -33,7 +33,7 @@ Log in to the Rancher web console and choose the desired cluster.
 
 You now see a button at the top right that says **Kubeconfig File**. Click it, scroll down to the bottom and click **Copy to Clipboard**.
 
-{{< imgproc kubectlconfigfilebutton.png Resize  "800x" >}}{{< /imgproc >}}
+![kubeconfig file](kubectlconfigfilebutton.png)
 
 The copied kubeconfig now needs to be put into a file. The default location for the kubeconfig file is `~/.kube/config`.
 
@@ -177,8 +177,6 @@ Open your browser, open the OpenShift cluster URL and log in using the provided 
 In order to log in on the command line, copy the login command from the Web Console.
 
 To do that, open the Web Console and click on your username that you see at the top right, then choose **Copy Login Command**.
-
-{{% imgproc login-ocp.png Resize  "400x" %}}{{% /imgproc %}}
 
 A new tab or window will open in your browser.
 
