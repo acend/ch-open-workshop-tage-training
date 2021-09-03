@@ -1,16 +1,10 @@
 ---
-title: "7. Attaching a database"
-weight: 7
-sectionnumber: 7
+title: "6. Attaching a database"
+weight: 6
+sectionnumber: 6
 ---
 
 Numerous applications are stateful in some way and want to save data persistently, be it in a database, as files on a filesystem or in an object store. In this lab, we are going to create a MariaDB database and configure our application to store its data in it.
-
-{{% onlyWhen openshift %}}
-{{% alert title="Warning" color="secondary" %}}
-Please make sure you completed labs [2 (Project creation)](../02/), [3 (Deployment creation)](../03/) and [4 (Service and Route creation)](../04/) before you continue with this lab.
-{{% /alert %}}
-{{% /onlyWhen %}}
 
 
 ## Task {{% param sectionnumber %}}.1: Instantiate a MariaDB database
@@ -22,8 +16,6 @@ We are going to use an OpenShift template to create the database. This can be do
 ### Instantiate a template using the Web Console
 
 Make sure you are in OpenShift's **Developer** view (upper left dropdown) and have selected the correct Project:
-
-{{< imgproc selection.png Resize  "600x" >}}{{< /imgproc >}}
 
 Now click **+Add**, choose **Database**, **MariaDB (Ephemeral)** and then **Instantiate Template**. A form opens. Check that the first field corresponds to the correct Project and set the **MariaDB Database Name** field to `acendexampledb` and leave the remaining fields as they are. Finally, click **Create** at the end of the form.
 
@@ -182,17 +174,7 @@ As we had seen in the earlier labs, all resources like Deployments, Services, Se
 In our case we want to create a deployment including a Service for our MySQL database.
 Save this snippet as `mariadb.yaml`:
 
-{{% onlyWhenNot customer %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/07/mariadb.yaml" >}}{{< /highlight >}}
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/07/mariadb-mobi.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
-{{% onlyWhen netcetera %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/07/mariadb-netcetera.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
-
+{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/mariadb_lab06.yaml" >}}{{< /highlight >}}
 
 Execute it with:
 
@@ -275,7 +257,7 @@ This does not work if we delete the database Pod as its data is not yet persiste
 
 ## Task {{% param sectionnumber %}}.4: Manual database connection
 
-As described in [lab 6](../06/) we can log into a Pod with {{% onlyWhenNot openshift %}}`kubectl exec -it <pod> -- /bin/bash`.{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}`oc rsh <pod>`.{{% /onlyWhen %}}
+As described in [lab 5](./05_troubleshooting/) we can log into a Pod with {{% onlyWhenNot openshift %}}`kubectl exec -it <pod> -- /bin/bash`.{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}`oc rsh <pod>`.{{% /onlyWhen %}}
 
 Show all Pods:
 
@@ -331,7 +313,7 @@ show tables;
 
 ## Task {{% param sectionnumber %}}.5: Import a database dump
 
-Our task is now to import this [dump.sql](https://raw.githubusercontent.com/acend/kubernetes-basics-training/master/content/en/docs/07/dump.sql) into the MariaDB database running as a Pod. Use the `mysql` command line utility to do this. Make sure the database is empty beforehand. You could also delete and recreate the database.
+Our task is now to import this [dump.sql](https://raw.githubusercontent.com/acend/ch-open-workshop-tage-training/main/content/en/docs/02/resources/dump.sql) into the MariaDB database running as a Pod. Use the `mysql` command line utility to do this. Make sure the database is empty beforehand. You could also delete and recreate the database.
 
 {{% alert title="Note" color="primary" %}}
 You can also copy local files into a Pod using `{{% param cliToolName %}} cp`. Be aware that the `tar` binary has to be present inside the container and on your operating system in order for this to work! Install `tar` on UNIX systems with e.g. your package manager, on Windows there's e.g. [cwRsync](https://www.itefix.net/cwrsync). If you cannot install `tar` on your host, there's also the possibility of logging into the Pod and using `curl -O <url>`.
@@ -407,10 +389,6 @@ mysqldump --user=$MYSQL_USER --password=$MYSQL_PASSWORD -hmariadb-svc acendexamp
 
 You should now have the following resources in place:
 
-* [example-web-python.yaml](example-web-python.yaml)
-* [mariadb-secret.yaml](mariadb-secret.yaml)
-* {{% onlyWhenNot openshift %}}
-  {{% onlyWhenNot customer %}}[mariadb.yaml](mariadb.yaml){{% /onlyWhenNot %}}
-  {{% onlyWhen customer %}}[mariadb-{{% param customer %}}.yaml](mariadb-{{% param customer %}}.yaml){{% /onlyWhen %}}
-  {{% /onlyWhenNot %}}
-  {{% onlyWhen openshift %}}[mariadb-openshift.yaml](mariadb-openshift.yaml){{% /onlyWhen %}}
+* [example-web-python.yaml](resources/example-web-python-lab06.yaml)
+* [mariadb-secret.yaml](resources/mariadb-secret.yaml)
+* [mariadb.yaml](resources/mariadb_lab06.yaml)

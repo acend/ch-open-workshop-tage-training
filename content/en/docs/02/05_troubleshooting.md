@@ -1,7 +1,7 @@
 ---
-title: "6. Troubleshooting"
-weight: 6
-sectionnumber: 6
+title: "5. Troubleshooting"
+weight: 5
+sectionnumber: 5
 ---
 
 This lab helps you troubleshoot your application and shows you some tools to make troubleshooting easier.

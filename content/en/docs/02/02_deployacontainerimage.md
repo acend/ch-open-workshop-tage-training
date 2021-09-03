@@ -1,7 +1,7 @@
 ---
-title: "3. Deploy a container image"
-weight: 3
-sectionnumber: 3
+title: "2. Deploy a container image"
+weight: 2
+sectionnumber: 2
 ---
 
 In this lab, we are going to deploy our first container image and look at the concepts of Pods, Services, and Deployments.
@@ -280,4 +280,4 @@ your existing resources or you can apply the provided manifests with `{{% param 
 
 You should now have the following resources in place:
 
-* [deployment.yaml](deployment.yaml)
+* [deployment.yaml](resources/deployment.yaml)

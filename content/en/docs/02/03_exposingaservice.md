@@ -1,7 +1,7 @@
 ---
-title: "4. Exposing a Service"
-weight: 4
-sectionnumber: 4
+title: "3. Exposing a Service"
+weight: 3
+sectionnumber: 3
 ---
 
 In this lab, we are going to make the freshly deployed application from the last lab available online.
@@ -152,17 +152,7 @@ With the ClusterIP Service ready, we can now create the {{% onlyWhenNot openshif
 {{% onlyWhenNot openshift %}}
 In order to create the Ingress resource, we first need to create the file `ingress.yaml` and change the `host` entry to match your environment:
 
-{{% onlyWhenNot customer %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/04/ingress.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhenNot %}}
-
-{{% onlyWhen mobi %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/04/ingress-mobi.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
-{{% onlyWhen netcetera %}}
-{{< highlight yaml >}}{{< readfile file="content/en/docs/04/ingress-netcetera.template.yaml" >}}{{< /highlight >}}
-{{% /onlyWhen %}}
-
+{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/ingress_example-web-go.yaml" >}}{{< /highlight >}}
 
 As you see in the resource definition at `spec.rules[0].http.paths[0].backend.serviceName` we use the previously created `example-web-go` ClusterIP Service.
 
@@ -231,8 +221,6 @@ The `NodePort` number is assigned by Kubernetes and stays the same as long as th
 
 {{% alert title="Note" color="primary" %}}
 If `NodePort` is not supported in your environment then you can use `--type=ClusterIP` (or omit this parameter completely as it is the default) and use port forwarding to the Service instead.
-
-Head over to task 6.3 in [lab 6](../06/) to learn how to use port forwarding.
 {{% /alert %}}
 
 
@@ -256,7 +244,7 @@ lab-3   Ready    controlplane,etcd,worker   150m   v1.17.4   5.102.145.148   <no
 {{% alert title="Note" color="primary" %}}
 You can also use the Rancher web console to open the exposed application in your browser. The direct link is shown on your **Resources / Workload** page in the tab **Workload**. Look for your namespace and the deployment name. The link looks like `31665/tcp`.
 
-{{< imgproc nodeportrancher.png Resize  "500x" >}}{{< /imgproc >}}
+![NodePort in Rancher](nodeportrancher.png)
 
 Or go to the **Service Discovery** tab and look for your Service name. The link there looks the same and is right below the Service name.
 {{% /alert %}}
@@ -290,11 +278,6 @@ Have a closer look at the resources created in your namespace `<namespace>` with
 
 You should now have the following resources in place:
 
-* [deployment.yaml](../03/deployment.yaml) (from lab 3)
-* [service.yaml](service.yaml)
-* {{% onlyWhenNot openshift %}}
-  {{% onlyWhenNot customer %}}[ingress.template.yaml](ingress.template.yaml){{% /onlyWhenNot %}}
-  {{% onlyWhen customer %}}[ingress-{{% param customer %}}.template.yaml](ingress-{{% param customer %}}.template.yaml){{% /onlyWhen %}}
-  {{% /onlyWhenNot %}}
-  
-  {{% onlyWhen openshift %}}An exposed Route{{% /onlyWhen %}}
+* [deployment.yaml](resources/deployment.yaml) (from lab 2)
+* [service.yaml](resources/service.yaml)
+* [ingress.template.yaml](resources/ingress_example-web-go.yaml)

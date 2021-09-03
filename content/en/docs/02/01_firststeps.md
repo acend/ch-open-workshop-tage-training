@@ -1,14 +1,10 @@
 ---
-title: "2. First steps"
-weight: 2
-sectionnumber: 2
+title: "1. First steps"
+weight: 1
+sectionnumber: 1
 ---
 
 In this lab, we will interact with the {{% param distroName %}} cluster for the first time.
-
-{{% alert title="Warning" color="secondary" %}}
-Please make sure you completed [the setup](../../setup/) before you continue with this lab.
-{{% /alert %}}
 
 
 ## Login
@@ -37,7 +33,7 @@ Log in to the Rancher web console and choose the desired cluster.
 
 You now see a button at the top right that says **Kubeconfig File**. Click it, scroll down to the bottom and click **Copy to Clipboard**.
 
-{{< imgproc kubectlconfigfilebutton.png Resize  "800x" >}}{{< /imgproc >}}
+![kubeconfig file](kubectlconfigfilebutton.png)
 
 The copied kubeconfig now needs to be put into a file. The default location for the kubeconfig file is `~/.kube/config`.
 
@@ -145,7 +141,7 @@ SET KUBE_CONTEXT=[Insert output of the upper command]
 kubectl config set-context %KUBE_CONTEXT% --namespace <namespace>
 ```
 
-Some prefer to explicitly select the Namespace for each `kubectl` command by adding `--namespace <namespace>` or `-n <namespace>`. Others prefer helper tools like `kubens` (see [lab 2](../02/)).
+Some prefer to explicitly select the Namespace for each `kubectl` command by adding `--namespace <namespace>` or `-n <namespace>`. Others prefer helper tools like `kubens`.
 {{% /alert %}}
 
 {{% onlyWhen rancher %}}
@@ -181,8 +177,6 @@ Open your browser, open the OpenShift cluster URL and log in using the provided 
 In order to log in on the command line, copy the login command from the Web Console.
 
 To do that, open the Web Console and click on your username that you see at the top right, then choose **Copy Login Command**.
-
-{{% imgproc login-ocp.png Resize  "400x" %}}{{% /imgproc %}}
 
 A new tab or window will open in your browser.
 
