@@ -98,4 +98,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           message: |
            PR Environments: 
-           * acend version <https://workshoptage-training-pr-${{ github.event.pull_request.number }}.training.acend.ch>
+           * acend version <https://workshoptage-pr-${{ github.event.pull_request.number }}.training.acend.ch>
