@@ -83,7 +83,7 @@ customer = "none"
 
 argoCdUrl = "argocd.techlab.openshift.ch"
 argoInfraNamespace = "acend-infra-argocd"
-giteaUrl = "gitea.techlab.openshift.ch"
+giteaUrl = "github.com"
 techlabClusterWebConsolePrefix = "console"
 techlabClusterDomainName = "techlab.openshift.ch"
 techlabArgoCdUrl = "argocd.techlab.openshift.ch"
