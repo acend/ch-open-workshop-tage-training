@@ -1,5 +1,5 @@
 ---
-title: "4. Deleting containers"
+title: "1.4 Deleting containers"
 weight: 14
 ---
 

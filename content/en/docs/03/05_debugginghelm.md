@@ -1,7 +1,7 @@
 ---
-title: "5. Debugging Helm"
-weight: 5
-sectionnumber: 5
+title: "3.5 Debugging Helm"
+weight: 37
+sectionnumber: 3.5
 ---
 
 Debugging templates can be tricky because the rendered templates are sent to the {{% param distroName %}} API server which may reject the YAML files for reasons other than formatting.

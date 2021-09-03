@@ -1,7 +1,7 @@
 ---
-title: "2. Deploy a container image"
-weight: 2
-sectionnumber: 2
+title: "2.2 Deploy a container image"
+weight: 22
+sectionnumber: 2.2
 ---
 
 In this lab, we are going to deploy our first container image and look at the concepts of Pods, Services, and Deployments.

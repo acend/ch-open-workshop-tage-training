@@ -1,7 +1,7 @@
 ---
-title: "7. Persistent storage"
-weight: 7
-sectionnumber: 7
+title: "2.7 Persistent storage"
+weight: 27
+sectionnumber: 2.7
 ---
 
 By default, data in containers is not persistent as was the case e.g. in [lab 6](./06_attachingadatabase/). This means that data that was written in a container is lost as soon as it does not exist anymore. We want to prevent this from happening. One possible solution to this problem is to use persistent storage.

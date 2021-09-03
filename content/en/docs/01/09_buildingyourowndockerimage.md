@@ -1,5 +1,5 @@
 ---
-title: "9. Building your own Docker image"
+title: "1.9 Building your own Docker image"
 weight: 19
 ---
 

@@ -1,7 +1,7 @@
 ---
-title: "8. Deployment strategies"
-weight: 8
-sectionnumber: 8
+title: "2.8 Deployment strategies"
+weight: 28
+sectionnumber: 2.8
 ---
 
 In this lab, we are going to have a look at the different Deployment strategies.

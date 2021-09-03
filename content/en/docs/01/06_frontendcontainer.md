@@ -1,5 +1,5 @@
 ---
-title: "6. Frontend container"
+title: "1.6 Frontend container"
 weight: 16
 ---
 

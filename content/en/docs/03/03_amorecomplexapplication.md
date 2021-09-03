@@ -1,7 +1,7 @@
 ---
-title: "3. A more complex application"
-weight: 3
-sectionnumber: 3
+title: "3.3 A more complex application"
+weight: 33
+sectionnumber: 3.3
 ---
 
 In this extended lab, we are going to deploy an existing, more complex application with a Helm chart from the Artifact Hub.

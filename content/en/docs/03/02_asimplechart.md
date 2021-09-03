@@ -1,7 +1,7 @@
 ---
-title: "2. A simple chart"
-weight: 2
-sectionnumber: 2
+title: "3.2 A simple chart"
+weight: 32
+sectionnumber: 3.2
 ---
 
 In this lab we are going to create our very first Helm chart and deploy it.

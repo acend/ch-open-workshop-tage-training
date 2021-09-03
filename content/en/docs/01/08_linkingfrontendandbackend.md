@@ -1,5 +1,5 @@
 ---
-title: "8. Linking frontend and backend"
+title: "1.8 Linking frontend and backend"
 weight: 18
 ---
 

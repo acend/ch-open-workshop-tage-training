@@ -1,7 +1,7 @@
 ---
-title: "4. Scaling"
-weight: 4
-sectionnumber: 4
+title: "2.4 Scaling"
+weight: 24
+sectionnumber: 2.4
 ---
 
 In this lab, we are going to show you how to scale applications on {{% param distroName %}}. Furthermore, we show you how {{% param distroName %}} makes sure that the number of requested Pods is up and running and how an application can tell the platform that it is ready to receive requests.
