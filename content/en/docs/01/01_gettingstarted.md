@@ -1,5 +1,5 @@
 ---
-title: "1. Getting started"
+title: "1.1 Getting started"
 weight: 11
 ---
 

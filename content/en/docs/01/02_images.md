@@ -1,5 +1,5 @@
 ---
-title: "2. Images"
+title: "1.2 Images"
 weight: 12
 ---
 

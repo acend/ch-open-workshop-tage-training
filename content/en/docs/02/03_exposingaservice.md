@@ -1,7 +1,7 @@
 ---
-title: "3. Exposing a Service"
-weight: 3
-sectionnumber: 3
+title: "2.3 Exposing a Service"
+weight: 23
+sectionnumber: 2.3
 ---
 
 In this lab, we are going to make the freshly deployed application from the last lab available online.

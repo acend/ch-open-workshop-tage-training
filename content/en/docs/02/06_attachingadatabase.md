@@ -1,7 +1,7 @@
 ---
-title: "6. Attaching a database"
-weight: 6
-sectionnumber: 6
+title: "2.6 Attaching a database"
+weight: 26
+sectionnumber: 2.6
 ---
 
 Numerous applications are stateful in some way and want to save data persistently, be it in a database, as files on a filesystem or in an object store. In this lab, we are going to create a MariaDB database and configure our application to store its data in it.

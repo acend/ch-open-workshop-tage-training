@@ -1,7 +1,7 @@
 ---
-title: "9. Kustomize"
-weight: 9
-sectionnumber: 9
+title: "2.9 Kustomize"
+weight: 29
+sectionnumber: 2.9
 ---
 
 

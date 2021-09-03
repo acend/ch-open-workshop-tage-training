@@ -1,7 +1,7 @@
 ---
-title: "4. Your own Helm chart"
-weight: 4
-sectionnumber: 4
+title: "3.4. Your own Helm chart"
+weight: 34
+sectionnumber: 3.4
 ---
 
 Remember [lab 2 "A simple chart"](../02/) where you created your first chart? Let's have a closer look at its directory structure and components. A typical chart consists of the following files and folders:

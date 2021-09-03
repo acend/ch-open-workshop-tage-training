@@ -1,7 +1,7 @@
 ---
-title: "1. Getting started"
-weight: 1
-sectionnumber: 1
+title: "3.1 Getting started"
+weight: 31
+sectionnumber: 3.1
 ---
 
 ## Task {{% param sectionnumber %}}.1: `{{% param cliToolName %}}` installation

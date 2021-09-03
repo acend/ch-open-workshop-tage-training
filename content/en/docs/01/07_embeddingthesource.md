@@ -1,5 +1,5 @@
 ---
-title: "7. Embedding the source code"
+title: "1.7 Embedding the source code"
 weight: 17
 ---
 

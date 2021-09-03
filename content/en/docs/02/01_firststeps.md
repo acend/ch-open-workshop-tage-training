@@ -1,7 +1,7 @@
 ---
-title: "1. First steps"
-weight: 1
-sectionnumber: 1
+title: "2.1 First steps"
+weight: 21
+sectionnumber: 2.1
 ---
 
 In this lab, we will interact with the {{% param distroName %}} cluster for the first time.
