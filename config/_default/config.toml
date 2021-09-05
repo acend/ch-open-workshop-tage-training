@@ -75,7 +75,7 @@ github_branch = "main"
 
 replaceLabContent = "LOCALHOST"
 
-enabledModule = "base cloudscale"
+enabledModule = "base cloudscale rancher"
 distroName = "Kubernetes"
 cliToolName = "kubectl"
 

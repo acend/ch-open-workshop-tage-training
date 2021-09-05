@@ -118,14 +118,14 @@ Check the Argo CD UI to browse the application and their components. The URL of 
 
 Application overview in unsynced and synced state
 
-![Application overview (unsynced state)](app-overview-unsynced.png)
-![Application overview (synced state)](app-overview-synced.png)
+![Application overview (unsynced state)](../app-overview-unsynced.png)
+![Application overview (synced state)](../app-overview-synced.png)
 
 Detailed view of a application in unsynced and synced state
 
-![Application Tree (unsynced state)](app-tree-unsynced.png)
+![Application Tree (unsynced state)](../app-tree-unsynced.png)
 
-![Application Tree (synced state)](app-tree-sycned.png)
+![Application Tree (synced state)](../app-tree-sycned.png)
 
 
 ## Task {{% param sectionnumber %}}.3: Automated sync policy and diff
@@ -228,11 +228,11 @@ which should give you an output similar to:
 
 Now open the web console of Argo CD and go to your application. The deployment `simple-example` is marked as 'OutOfSync':
 
-![Application Out-of-Sync](app-replicas-diff-overview.png)
+![Application Out-of-Sync](../app-replicas-diff-overview.png)
 
 With a click on Deployment > Diff you will see the differences:
 
-![Application Differences](app-replicas-diff-detail.png)
+![Application Differences](../app-replicas-diff-detail.png)
 
 Now click `Sync` on the top left and let the magic happen. The application will be scaled up to 2 replicas and the resources are in Sync again.
 

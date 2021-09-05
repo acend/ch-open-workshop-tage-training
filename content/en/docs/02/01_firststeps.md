@@ -33,7 +33,7 @@ Log in to the Rancher web console and choose the desired cluster.
 
 You now see a button at the top right that says **Kubeconfig File**. Click it, scroll down to the bottom and click **Copy to Clipboard**.
 
-![kubeconfig file](kubectlconfigfilebutton.png)
+![kubeconfig file](../kubectlconfigfilebutton.png)
 
 The copied kubeconfig now needs to be put into a file. The default location for the kubeconfig file is `~/.kube/config`.
 
