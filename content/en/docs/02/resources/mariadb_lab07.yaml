@@ -13,7 +13,7 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb
+  name: mariadb-svc
   labels:
     app: mariadb
 spec:
