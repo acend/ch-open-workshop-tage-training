@@ -326,7 +326,7 @@ This is how you copy the database dump into the Pod:
 
 ```bash
 curl -O https://raw.githubusercontent.com/acend/kubernetes-basics-training/master/content/en/docs/07/dump.sql
-{{% param cliToolName %}} cp ./dump.sql mysql-f845ccdb7-hf2x5:/tmp/ --namespace <namespace>
+{{% param cliToolName %}} cp ./dump.sql <mariadb-pod>:/tmp/ --namespace <namespace>
 ```
 
 This is how you log into the MySQL Pod:
