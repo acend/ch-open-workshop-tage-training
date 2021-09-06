@@ -1,5 +1,5 @@
 ---
-title: "4.2. Simple Example"
+title: "4.2. Simple example"
 weight: 42
 sectionnumber: 4.2
 ---
@@ -7,7 +7,7 @@ sectionnumber: 4.2
 In this lab you will learn how to deploy a simple application using Argo CD.
 
 
-## Task {{% param sectionnumber %}}.1: Fork the Git repository
+## Task {{% param sectionnumber %}}.1: Fork the git repository
 
 As we are proceeding according to the GitOps principle we need some example resource manifests in a Git repository which we can edit.
 
@@ -363,7 +363,7 @@ apps   Deployment  <username>   simple-example  Synced     Healthy        deploy
 The Service was successfully deleted by Argo CD because the manifest was removed from git. See the HEALTH and MESSAGE of the previous console output.
 
 
-## Task {{% param sectionnumber %}}.6: State of ArgoCD
+## Task {{% param sectionnumber %}}.6: State of Argo CD
 
 Argo CD is largely built stateless. The configuration is persisted as native Kubernetes objects. And those are stored in Kubernetes _etcd_. There is no additional storage layer needed to run ArgoCD. The Redis storage under the hood acts just as a throw-away cache and can be evicted anytime without any data loss.
 
@@ -395,7 +395,7 @@ You even can edit the `Application` resource by using:
 This allows us to manage the ArgoCD application definitions in a declarative way as well. It is a common pattern to have one ArgoCD application which references n child Applications which allows us a fast bootstrapping of a whole environment or a new cluster. This pattern is well known as the [App of apps](https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) pattern.
 
 
-## Task {{% param sectionnumber %}}.7: Delete the Application
+## Task {{% param sectionnumber %}}.7: Delete the application
 
 You can cascading delete the ArgoCD Application with the following command:
 
