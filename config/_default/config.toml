@@ -82,7 +82,7 @@ cliToolName = "kubectl"
 customer = "none"
 
 argoCdUrl = "argocd.techlab.openshift.ch"
-argoInfraNamespace = "acend-infra-argocd"
+argoInfraNamespace = "argocd"
 giteaUrl = "github.com"
 techlabClusterWebConsolePrefix = "console"
 techlabClusterDomainName = "techlab.openshift.ch"
