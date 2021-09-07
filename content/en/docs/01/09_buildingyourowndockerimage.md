@@ -270,7 +270,7 @@ docker run -d --network container-basics-+username+ --name php-app -p8080:80 php
 Now within the web shell's terminal send an http request to <http://<apache-php container's IP address>:8080/db.php> using curl:
 
 ```bash
-curl http://<http://<apache-php container's IP address>:8080/db.php>
+curl http://\<apache-php container's IP address>:8080/db.php>
 ```
 
 You should get a response saying "Connected successfully".

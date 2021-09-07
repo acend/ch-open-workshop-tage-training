@@ -105,12 +105,10 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 ```
 
 You see that every request coming to port 8080 on your local machine (the web shell) is forwarded to your Docker instance's port 80.
-If you now type http://<apache-php container's IP address>:8080/index.php in your browser you should get the message: "Welcome to Docker...".
+If you curl to http://\<apache-php container's IP address>:8080/index.php in your browser you should get the message: "Welcome to Docker...".
 
 {{% alert title="Note" color="primary" %}}
-
-* Instead of using a browser, you can also use `curl http://LOCALHOST:8080/index.php`.
-* http://<apache-php container's IP address>:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
+* http://\<apache-php container's IP address>:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
 {{% /alert %}}
 
 > Question: Can I somehow link the containers together, so that they can talk to each other?
