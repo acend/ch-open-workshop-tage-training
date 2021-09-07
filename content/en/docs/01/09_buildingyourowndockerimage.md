@@ -267,7 +267,7 @@ docker build -t php-app .
 docker run -d --network container-basics-+username+ --name php-app -p8080:80 php-app
 ```
 
-Now within the web shell's terminal send an http request to <http://<apache-php container's IP address>:8080/db.php> using curl:
+Now within the web shell's terminal send an http request to http://\<apache-php container's IP address>:8080/db.php using curl:
 
 ```bash
 curl http://\<apache-php container's IP address>:8080/db.php>
