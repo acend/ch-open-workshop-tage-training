@@ -3,7 +3,7 @@ title: "1.7 Embedding the source code"
 weight: 17
 ---
 
-From the [previous lab](../07/):
+From the [previous lab](../06_frontendcontainer/):
 
 > Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
 
@@ -26,15 +26,6 @@ Then, inside that directory, create a new file named `index.php` with the follow
 echo "Welcome to Docker (my young padawan)!";
 ?>
 ```
-
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-
-* Create a directory with this shell command: `mkdir php-app`
-* Create a file with this shell command: `touch index.php`
-* Open your editor
-* Select the folder and then the file
-* Add the content and save the changes
-{{% /alert %}}
 
 Lastly, create another file named `db.php` with the following content:
 
@@ -70,18 +61,12 @@ Linux:
 docker run -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
 
-Windows (Git Bash):
-
-```bash
-MSYS_NO_PATHCONV=1 docker run -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
-```
-
 {{% alert title="Note" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
 {{% /alert %}}
 
 {{% alert title="Note" color="primary" %}}
-You need to set the absolute path on the -v option, e.g. `-v /home/<username>/php-app:/var/www/html` or `-v C:\Temp\php-app:/var/www/html`
+You need to set the absolute path on the -v option, e.g. `-v /home/project/php-app:/var/www/html`.
 {{% /alert %}}
 
 You can now check whether the error is still present, or wait until the second question is answered.
@@ -102,12 +87,6 @@ Linux:
 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app:/var/www/html php:7-apache
 ```
 
-Windows (Git Bash):
-
-```bash
-MSYS_NO_PATHCONV=1 docker run -p 8080:80 -d --name apache-php -v $(pwd)/php-app/:/var/www/html php:7-apache
-```
-
 {{% alert title="Note" color="primary" %}}
 Do not forget to stop/remove the existing instance of the `apache-php` container before you start a new one.
 {{% /alert %}}
@@ -125,21 +104,13 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 6f08ac657320        mariadb             "docker-entrypoint..."   5 hours ago         Up 2 hours          3306/tcp             mariadb-container
 ```
 
-You see that every request coming to port 8080 on your local machine is forwarded to your Docker instance's port 80.
-If you now type <http://LOCALHOST:8080/index.php> in your browser you should get the message: "Welcome to Docker...".
+You see that every request coming to port 8080 on your local machine (the web shell) is forwarded to your Docker instance's port 80.
+If you curl to http://\<apache-php container's IP address>:8080/index.php you should get the message: "Welcome to Docker...".
 
 {{% alert title="Note" color="primary" %}}
 
-* Instead of using a browser, you can also use `curl http://LOCALHOST:8080/index.php`.
-* <http://LOCALHOST:8080/db.php> will produce an error. This is on purpose. Please be patient until the end of lab 10!
-{{% /alert %}}
+* http://\<apache-php container's IP address>:8080/db.php will produce an error. This is on purpose. Please be patient until the end of lab 10!
 
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-To access the frontend app, you have to use a special URL
-
-* Copy the SSH connection command (`ssh ip172-18-0-30-bcvhrp0abk8g00cnf9jg@direct.labs.play-with-docker.com`)
-* Remove *ssh* and replace the **@** with a **.**
-* With that URL you will see the app page: `ip172-18-0-30-bcvhrp0abk8g00cnf9jg.direct.labs.play-with-docker.com`
 {{% /alert %}}
 
 > Question: Can I somehow link the containers together, so that they can talk to each other?

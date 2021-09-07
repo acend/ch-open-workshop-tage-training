@@ -3,7 +3,7 @@ title: "1.5 Names"
 weight: 15
 ---
 
-From the [previous lab](../04/):
+From the [previous lab](../04_deletingcontainers/):
 
 > Question: Where do these strange names come from?
 

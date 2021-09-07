@@ -3,7 +3,7 @@ title: "1.8 Linking frontend and backend"
 weight: 18
 ---
 
-From the [previous lab](../08/):
+From the [previous lab](../07_embeddingthesource/):
 
 > Question: Can I somehow link the containers together, so that they can talk to each other?
 
@@ -48,7 +48,7 @@ NETWORK ID          NAME                DRIVER              SCOPE
 For this exercise we are creating our own network with:
 
 ```bash
-docker network create container-basics-training
+docker network create container-basics-+username+
 ```
 
 If you now rerun the list command for Docker networks you should see the newly created network.
@@ -58,15 +58,15 @@ To make the backend accessible/visible to the frontend (via Container-NAMES) you
 Linux:
 
 ```bash
-docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
-docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+docker run -d --network container-basics-+username+ --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-+username+ --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
 Windows (Git Bash):
 
 ```bash
-MSYS_NO_PATHCONV=1 docker run -d --network container-basics-training --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
-docker run -d --network container-basics-training --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
+MSYS_NO_PATHCONV=1 docker run -d --network container-basics-+username+ --name apache-php -v $(pwd)/php-app:/var/www/html -p 8080:80 php:7-apache
+docker run -d --network container-basics-+username+ --name mariadb-container-with-existing-external-volume -v volume-mariadb:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw mariadb
 ```
 
 If you access either container you should be able to resolve the other container's address with its container name.
@@ -77,7 +77,7 @@ Execute an interactive `bash` shell on the mariadb container.
 docker exec -it mariadb-container-with-existing-external-volume bash
 ```
 
-You are now in the Bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
+You are now in the bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
 
 Get the address of the `apache-php` container.
 
@@ -87,7 +87,7 @@ getent hosts apache-php
 
 The two containers are now able to talk to each other. But let's check this:
 
-If you type <http://LOCALHOST:8080/db.php> in your browser you should get... an error!
+If you curl to http://\<apache-php container's IP address>:8080/db.php you should get... an error!
 Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?

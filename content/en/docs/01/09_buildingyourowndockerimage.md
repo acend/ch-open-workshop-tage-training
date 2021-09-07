@@ -3,7 +3,7 @@ title: "1.9 Building your own Docker image"
 weight: 19
 ---
 
-From the [previous lab](../09/):
+From the [previous lab](../08_linkingfrontendandbackend/):
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 
@@ -264,10 +264,15 @@ docker build -t php-app .
 ### Run the php-app container
 
 ```bash
-docker run -d --network container-basics-training --name php-app -p8080:80 php-app
+docker run -d --network container-basics-+username+ --name php-app -p8080:80 php-app
 ```
 
-Now open a browser and navigate to <http://LOCALHOST:8080/db.php>.
+Now within the web shell's terminal send an http request to http://\<apache-php container's IP address>:8080/db.php using curl:
+
+```bash
+curl http://\<apache-php container's IP address>:8080/db.php>
+```
+
 You should get a response saying "Connected successfully".
 
 

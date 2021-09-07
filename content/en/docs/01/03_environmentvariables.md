@@ -4,7 +4,7 @@ weight: 13
 ---
 
 
-From the [previous lab](../02/):
+From the [previous lab](../02_images/):
 
 > Question: What's wrong? Am I an idiot?
 
