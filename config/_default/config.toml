@@ -89,6 +89,9 @@ techlabClusterDomainName = "techlab.openshift.ch"
 techlabArgoCdUrl = "argocd.techlab.openshift.ch"
 techlabGiteaUrl = "gitea.techlab.openshift.ch"
 
+[params.replaceContent]
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+
 [[params.replaceContent.placeholders]]
 placeholder = "+username+"
 queryParam = "u"
