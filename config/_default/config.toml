@@ -89,6 +89,12 @@ techlabClusterDomainName = "techlab.openshift.ch"
 techlabArgoCdUrl = "argocd.techlab.openshift.ch"
 techlabGiteaUrl = "gitea.techlab.openshift.ch"
 
+[[params.replaceContent.placeholders]]
+placeholder = "+username+"
+queryParam = "u"
+defaultValue = "user0"
+href = true
+
 [params.images]
 acendAwesomeApp-example-web-go = "quay.io/acend/example-web-go:latest"
 acendAwesomeApp-example-web-python = "quay.io/acend/example-web-python:latest"

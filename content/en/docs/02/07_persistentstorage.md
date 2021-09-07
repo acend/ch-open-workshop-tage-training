@@ -25,7 +25,7 @@ In a second step, the PVC from before is going to be attached to the Pod. In [la
 The `oc set volume` command makes it possible to create a PVC and attach it to a Deployment in one fell swoop:
 
 ```bash
-oc set volume dc/mariadb --add --name=mariadb-data --claim-name=mariadb-data --type persistentVolumeClaim --mount-path=/var/lib/mysql --claim-size=1G --overwrite --namespace <namespace>
+oc set volume dc/mariadb --add --name=mariadb-data --claim-name=mariadb-data --type persistentVolumeClaim --mount-path=/var/lib/mysql --claim-size=1G --overwrite --namespace +username+
 ```
 
 With the instruction above we create a PVC named `mariadb-data` of 1Gi in size, attach it to the DeploymentConfig `mariadb` and mount it at `/var/lib/mysql`. This is where the MariaDB process writes its data by default so after we make this change, the database will not even notice that it is writing in a PersistentVolume.
@@ -45,13 +45,13 @@ Save it to `pvc.yaml`:
 And create it with:
 
 ```bash
-kubectl create -f pvc.yaml --namespace <namespace>
+kubectl create -f pvc.yaml --namespace +username+
 ```
 
 We now have to insert the volume definition in the correct section of the MariaDB deployment:
 
 ```bash
-kubectl edit deployment mariadb --namespace <namespace>
+kubectl edit deployment mariadb --namespace +username+
 ```
 
 Add both parts `volumeMounts` and `volumes`
@@ -87,19 +87,19 @@ We need to redeploy the application pod, our application automatically creates t
 {{% onlyWhenNot openshift %}}
 If you want to force a redeployment of a Pod, you could use this:
 ```bash
-kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace <namespace>
+kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace +username+
 ```
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
 ```bash
-oc rollout restart deployment example-web-python --namespace <namespace>
+oc rollout restart deployment example-web-python --namespace +username+
 ```
 {{% /onlyWhen %}}
 
 Using the command `{{% param cliToolName %}} get persistentvolumeclaim` or `{{% param cliToolName %}} get pvc`, we can display the freshly created PersistentVolumeClaim:
 
 ```bash
-{{% param cliToolName %}} get pvc --namespace <namespace>
+{{% param cliToolName %}} get pvc --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -118,7 +118,7 @@ If the container is not able to start it is the right moment to debug it!
 Check the logs from the container and search for the error.
 
 ```bash
-{{% param cliToolName %}} logs mariadb-f845ccdb7-hf2x5 --namespace <namespace>
+{{% param cliToolName %}} logs mariadb-f845ccdb7-hf2x5 --namespace +username+
 ```
 
 {{% alert title="Note" color="primary" %}}

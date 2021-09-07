@@ -81,13 +81,13 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
         - path: /
   tls:
-    - secretName: mychart-<namespace>-<appdomain>
+    - secretName: mychart-+username+-<appdomain>
       hosts:
-        - mychart-<namespace>.<appdomain>
+        - mychart-+username+.<appdomain>
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -167,13 +167,13 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
         - path: /
   tls:
-    - secretName: mychart-<namespace>-<appdomain>
+    - secretName: mychart-+username+-<appdomain>
       hosts:
-        - mychart-<namespace>.<appdomain>
+        - mychart-+username+.<appdomain>
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -254,7 +254,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
       - path: /
   tls: []
@@ -293,7 +293,7 @@ affinity: {}
 {{% alert title="Note" color="primary" %}}
 Make sure to set the proper value as hostname. `<appdomain>` will be provided by the trainer.
 {{% onlyWhen mobi %}}
-Use `<namespace>.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
+Use `+username+.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
 {{% /onlyWhen %}}
 {{% /alert %}}
 
@@ -366,15 +366,15 @@ spec:
 To create a release from our chart, we run the following command within our chart directory:
 
 ```bash
-helm install myapp ./mychart --namespace <namespace>
+helm install myapp ./mychart --namespace +username+
 ```
 
 This will create a new release with the name `myapp`. If we already had installed a release and wanted to update the existing one, we'd use the following command:
 
 ```bash
-helm upgrade myfirstrelease --namespace <namespace> ./mychart
+helm upgrade myfirstrelease --namespace +username+ ./mychart
 ```
 
-Check whether the ingress was successfully deployed by accessing the URL `http://mychart-<namespace>.<appdomain>/`
+Check whether the ingress was successfully deployed by accessing the URL `http://mychart-+username+.<appdomain>/`
 
 Continue with the lab "[A new backend](../database/)".

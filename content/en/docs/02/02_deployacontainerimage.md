@@ -19,7 +19,7 @@ First, we are going to directly start a new Pod:
 {{% onlyWhenNot mobi %}}
 
 ```bash
-{{% param cliToolName %}} run awesome-app --image={{% param "images.acendAwesomeApp-example-web-go" %}} --restart=Never --requests='cpu=10m,memory=16Mi' --limits='cpu=20m,memory=32Mi' --namespace <namespace>
+{{% param cliToolName %}} run awesome-app --image={{% param "images.acendAwesomeApp-example-web-go" %}} --restart=Never --requests='cpu=10m,memory=16Mi' --limits='cpu=20m,memory=32Mi' --namespace +username+
 ```
 
 {{% /onlyWhenNot %}}
@@ -32,10 +32,10 @@ kubectl run awesome-app --image={{% param "images.acendAwesomeApp-example-web-go
 {{% /onlyWhen %}}
 
 
-Use `{{% param cliToolName %}} get pods --namespace <namespace>` in order to show the running Pod:
+Use `{{% param cliToolName %}} get pods --namespace +username+` in order to show the running Pod:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -55,7 +55,7 @@ Have a look at your awesome-app Pod inside the OpenShift web console.
 Now delete the newly created Pod:
 
 ```bash
-{{% param cliToolName %}} delete pod awesome-app --namespace <namespace>
+{{% param cliToolName %}} delete pod awesome-app --namespace +username+
 ```
 
 
@@ -99,7 +99,7 @@ And with this we create our Deployment inside our already created namespace:
 
 
 ```bash
-{{% param cliToolName %}} apply -f 03_deployment.yaml --namespace <namespace>
+{{% param cliToolName %}} apply -f 03_deployment.yaml --namespace +username+
 ```
 
 The output should be:
@@ -119,14 +119,14 @@ The `{{% param cliToolName %}} get -w` command will never end unless you termina
 {{% /alert %}}
 
 ```bash
-{{% param cliToolName %}} get pods -w --namespace <namespace>
+{{% param cliToolName %}} get pods -w --namespace +username+
 ```
 
 {{% alert title="Note" color="primary" %}}
 Instead of using the `-w` parameter you can also use the `watch` command which should be available on most Linux distributions:
 
 ```bash
-watch {{% param cliToolName %}} get pods --namespace <namespace>
+watch {{% param cliToolName %}} get pods --namespace +username+
 ```
 
 {{% /alert %}}
@@ -141,11 +141,11 @@ If you want to create your own container images and use them with {{% param dist
 ## Task {{% param sectionnumber %}}.3: Viewing the created resources
 
 {{% onlyWhenNot mobi %}}
-When we executed the command `{{% param cliToolName %}} create deployment example-web-go --image={{% param "images.acendAwesomeApp-example-web-go" %}} --namespace <namespace>`, {{% param distroName %}} created a Deployment resource.
+When we executed the command `{{% param cliToolName %}} create deployment example-web-go --image={{% param "images.acendAwesomeApp-example-web-go" %}} --namespace +username+`, {{% param distroName %}} created a Deployment resource.
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen mobi %}}
-When we executed the command `kubectl create deployment example-web-go --image={{% param "images.acendAwesomeApp-example-web-go" %}} --namespace <namespace>`, kubectl created a Deployment resource.
+When we executed the command `kubectl create deployment example-web-go --image={{% param "images.acendAwesomeApp-example-web-go" %}} --namespace +username+`, kubectl created a Deployment resource.
 {{% /onlyWhen %}}
 
 
@@ -154,7 +154,7 @@ When we executed the command `kubectl create deployment example-web-go --image={
 Display the created Deployment using the following command:
 
 ```bash
-{{% param cliToolName %}} get deployments --namespace <namespace>
+{{% param cliToolName %}} get deployments --namespace +username+
 ```
 
 A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) defines the following facts:
@@ -169,13 +169,13 @@ A [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deploym
 By using the `-o` (or `--output`) parameter we get a lot more information about the deployment itself. You can choose between YAML and JSON formatting by indicating `-o yaml` or `-o json`. In this training we are going to use YAML, but please feel free to replace `yaml` with `json` if you prefer.
 
 ```bash
-{{% param cliToolName %}} get deployment example-web-go -o yaml --namespace <namespace>
+{{% param cliToolName %}} get deployment example-web-go -o yaml --namespace +username+
 ```
 
 After the image has been pulled, {{% param distroName %}} deploys a Pod according to the Deployment:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 which gives you an output similar to this:
@@ -227,19 +227,19 @@ Have a look at [OpenShift's documentation](https://docs.openshift.com/container-
 First we clean up the already existing Deployment:
 
 ```bash
-oc delete deployment example-web-go --namespace <namespace>
+oc delete deployment example-web-go --namespace +username+
 ```
 
 We are now ready to create the build and deployment, all in one command:
 
 ```bash
-oc new-app --name example-web-go --context-dir go/ --strategy docker https://github.com/acend/awesome-apps.git --namespace <namespace>
+oc new-app --name example-web-go --context-dir go/ --strategy docker https://github.com/acend/awesome-apps.git --namespace +username+
 ```
 
 Let's watch the image's build process:
 
 ```bash
-oc logs bc/example-web-go --follow --namespace <namespace>
+oc logs bc/example-web-go --follow --namespace +username+
 ```
 
 The message `Push successful` signifies the image's successful build and push to OpenShift's internal image.
@@ -255,7 +255,7 @@ A build Pod changes its name with every build.
 Have a look at the new Deployment created by the `oc new-app` command:
 
 ```bash
-oc get deployment example-web-go -o yaml --namespace <namespace>
+oc get deployment example-web-go -o yaml --namespace +username+
 ```
 
 It looks the same as before with the only essential exception that it uses the image we just built instead of the pre-built image from Quay.io:
@@ -264,7 +264,7 @@ It looks the same as before with the only essential exception that it uses the i
     ...
     spec:
       containers:
-      - image: image-registry.openshift-image-registry.svc:5000/<namespace>/awesome-app@sha256:4cd671273a837453464f7264afe845b299297ebe032f940fd005cf9c40d1e76c
+      - image: image-registry.openshift-image-registry.svc:5000/+username+/awesome-app@sha256:4cd671273a837453464f7264afe845b299297ebe032f940fd005cf9c40d1e76c
       ...
 ```
 

@@ -45,14 +45,14 @@ spec:
 ```
 
 ```bash
-{{% param cliToolName %}} apply -f 05_deployment.yaml --namespace <namespace>
+{{% param cliToolName %}} apply -f 05_deployment.yaml --namespace +username+
 ```
 
 If we want to scale our example application, we have to tell the Deployment that we want to have three running replicas instead of one.
 Let's have a closer look at the existing ReplicaSet:
 
 ```bash
-{{% param cliToolName %}} get replicasets --namespace <namespace>
+{{% param cliToolName %}} get replicasets --namespace +username+
 ```
 
 Which will give you an output similar to this:
@@ -66,7 +66,7 @@ example-web-python-86d9d584f8   1         1         1       110s
 Or for even more details:
 
 ```bash
-{{% param cliToolName %}} get replicaset <replicaset> -o yaml --namespace <namespace>
+{{% param cliToolName %}} get replicaset <replicaset> -o yaml --namespace +username+
 ```
 
 The ReplicaSet shows how many instances of a Pod are desired, current and ready.
@@ -75,13 +75,13 @@ The ReplicaSet shows how many instances of a Pod are desired, current and ready.
 Now we scale our application to three replicas:
 
 ```bash
-{{% param cliToolName %}} scale deployment example-web-python --replicas=3 --namespace <namespace>
+{{% param cliToolName %}} scale deployment example-web-python --replicas=3 --namespace +username+
 ```
 
 Check the number of desired, current and ready replicas:
 
 ```bash
-{{% param cliToolName %}} get replicasets --namespace <namespace>
+{{% param cliToolName %}} get replicasets --namespace +username+
 ```
 
 ```
@@ -93,7 +93,7 @@ example-web-python-86d9d584f8   3         3         1       4m33s
 Look at how many Pods there are:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -124,14 +124,14 @@ Now we create a new Service of the type `ClusterIP`:
 
 
 ```bash
-kubectl expose deployment example-web-python --type="ClusterIP" --name="example-web-python" --port=5000 --target-port=5000 --namespace <namespace>
+kubectl expose deployment example-web-python --type="ClusterIP" --name="example-web-python" --port=5000 --target-port=5000 --namespace +username+
 ```
 
 and we need to create an Ingress to access the application:
 
 {{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/ingress_example-web-python.yaml" >}}{{< /highlight >}}
 
-Apply this Ingress definition using, e.g., `kubectl create -f ingress.yml --namespace <namespace>`
+Apply this Ingress definition using, e.g., `kubectl create -f ingress.yml --namespace +username+`
 
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
@@ -140,20 +140,20 @@ Now we expose our application to the internet by creating a service and a route.
 First the Service:
 
 ```bash
-oc expose deployment example-web-python --name="example-web-python" --port=5000 --namespace <namespace>
+oc expose deployment example-web-python --name="example-web-python" --port=5000 --namespace +username+
 ```
 
 Then the Route:
 
 ```bash
-oc expose service example-web-python --namespace <namespace>
+oc expose service example-web-python --namespace +username+
 ```
 {{% /onlyWhen %}}
 
 Let's look at our Service. We should see all three corresponding Endpoints:
 
 ```bash
-{{% param cliToolName %}} describe service example-web-python --namespace <namespace>
+{{% param cliToolName %}} describe service example-web-python --namespace +username+
 ```
 {{% onlyWhenNot openshift %}}
 ```
@@ -193,7 +193,7 @@ Events:            <none>
 
 Scaling of Pods is fast as {{% param distroName %}} simply creates new containers.
 
-You can check the availability of your Service while you scale the number of replicas up and down in your browser: `{{% onlyWhenNot openshift %}}http://example-web-python-<namespace>.<domain>{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}http://<route hostname>{{% /onlyWhen %}}`.
+You can check the availability of your Service while you scale the number of replicas up and down in your browser: `{{% onlyWhenNot openshift %}}http://example-web-python-+username+.<domain>{{% /onlyWhenNot %}}{{% onlyWhen openshift %}}http://<route hostname>{{% /onlyWhen %}}`.
 
 {{% onlyWhen openshift %}}
 {{% alert title="Note" color="primary" %}}
@@ -209,13 +209,13 @@ Linux:
 
 {{% onlyWhen openshift %}}
 ```bash
-URL=$(oc get routes example-web-python -o go-template='{{ .spec.host }}' --namespace <namespace>)
+URL=$(oc get routes example-web-python -o go-template='{{ .spec.host }}' --namespace +username+)
 while true; do sleep 1; curl -s http://${URL}/pod/; date "+ TIME: %H:%M:%S,%3N"; done
 ```
 {{% /onlyWhen %}}
 {{% onlyWhenNot openshift %}}
 ```bash
-URL=example-web-python-<namespace>.<domain>
+URL=example-web-python-+username+.<domain>
 while true; do sleep 1; curl -s http://${URL}/pod/; date "+ TIME: %H:%M:%S,%3N"; done
 ```
 {{% /onlyWhenNot %}}
@@ -266,11 +266,11 @@ On Windows, execute the following command in Git Bash; PowerShell doesn't seem t
 
 {{% onlyWhenNot openshift %}}
 ```bash
-kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace <namespace>
+kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace +username+
 ```
 {{% /onlyWhenNot %}}{{% onlyWhen openshift %}}
 ```bash
-oc rollout restart deployment example-web-python --namespace <namespace>
+oc rollout restart deployment example-web-python --namespace +username+
 ```
 {{% /onlyWhen %}}
 
@@ -351,7 +351,7 @@ In our deployment configuration inside the rolling update strategy section, we d
 You can directly edit the deployment (or any resource) with:
 
 ```bash
-kubectl edit deployment example-web-python --namespace <namespace>
+kubectl edit deployment example-web-python --namespace +username+
 ```
 
 {{% alert title="Note" color="primary" %}}
@@ -421,7 +421,7 @@ The `containers` configuration then looks like:
 Define the readiness probe on the Deployment using the following command:
 
 ```bash
-oc set probe deploy/example-web-python --readiness --get-url=http://:5000/health --initial-delay-seconds=10 --timeout-seconds=1 --namespace <namespace>
+oc set probe deploy/example-web-python --readiness --get-url=http://:5000/health --initial-delay-seconds=10 --timeout-seconds=1 --namespace +username+
 ```
 
 The command above results in the following `readinessProbe` snippet being inserted into the Deployment:
@@ -450,13 +450,13 @@ Set up the loop again to periodically check the application's response (you don'
 
 {{% onlyWhen openshift %}}
 ```bash
-URL=$(oc get routes example-web-python -o go-template='{{ .spec.host }}' --namespace <namespace>)
+URL=$(oc get routes example-web-python -o go-template='{{ .spec.host }}' --namespace +username+)
 while true; do sleep 1; curl -s http://${URL}/pod/; date "+ TIME: %H:%M:%S,%3N"; done
 ```
 {{% /onlyWhen %}}
 {{% onlyWhenNot openshift %}}
 ```bash
-URL=example-web-python-<namespace>.<domain>
+URL=example-web-python-+username+.<domain>
 while true; do sleep 1; curl -s http://${URL}/pod/; date "+ TIME: %H:%M:%S,%3N"; done
 ```
 {{% /onlyWhenNot %}}
@@ -477,14 +477,14 @@ while(1) {
 Start a new deployment by editing it (the so-called _ConfigChange_ trigger creates the new Deployment automatically):
 
 ```bash
-kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace <namespace>
+kubectl patch deployment example-web-python -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}" --namespace +username+
 ```
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
 Start a new deployment:
 
 ```bash
-oc rollout restart deployment example-web-python --namespace <namespace>
+oc rollout restart deployment example-web-python --namespace +username+
 ```
 {{% /onlyWhen %}}
 
@@ -498,13 +498,13 @@ Look for a running Pod (status `RUNNING`) that you can bear to kill via `{{% par
 Show all Pods and watch for changes:
 
 ```bash
-{{% param cliToolName %}} get pods -w --namespace <namespace>
+{{% param cliToolName %}} get pods -w --namespace +username+
 ```
 
 Now delete a Pod (in another terminal) with the following command:
 
 ```bash
-{{% param cliToolName %}} delete pod <pod> --namespace <namespace>
+{{% param cliToolName %}} delete pod <pod> --namespace +username+
 ```
 
 Observe how {{% param distroName %}} instantly creates a new Pod in order to fulfill the desired number of running instances.

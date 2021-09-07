@@ -146,7 +146,7 @@ Prepare the files as described above in a local directory of your choice.
 We are now ready to deploy both apps for the two different environments. For simplicity, we will use the same Namespace.
 
 ```bash
-{{% param cliToolName %}} apply -k overlays/staging --namespace <namespace>
+{{% param cliToolName %}} apply -k overlays/staging --namespace +username+
 ```
 
 ```
@@ -155,7 +155,7 @@ deployment.apps/kustomize-app-staging created
 ```
 
 ```bash
-{{% param cliToolName %}} apply -k overlays/production --namespace <namespace>
+{{% param cliToolName %}} apply -k overlays/production --namespace +username+
 ```
 
 ```bash
@@ -169,7 +169,7 @@ However, they have a specific configuration on their own as well.
 Let's verify this. Our app writes a corresponding log entry that we can use for analysis:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 ```

@@ -30,7 +30,7 @@ In order to create {{% onlyWhenNot openshift %}}an Ingress{{% /onlyWhenNot %}}{{
 We're going to do this with the command `{{% param cliToolName %}} expose`:
 
 ```bash
-{{% param cliToolName %}} expose deployment example-web-go --type=ClusterIP --name=example-web-go --port=5000 --target-port=5000 --namespace <namespace>
+{{% param cliToolName %}} expose deployment example-web-go --type=ClusterIP --name=example-web-go --port=5000 --target-port=5000 --namespace +username+
 ```
 
 {{% onlyWhen openshift %}}
@@ -40,7 +40,7 @@ You may notice an error like `Error from server (AlreadyExists): services "examp
 Let's have a more detailed look at our Service:
 
 ```bash
-{{% param cliToolName %}} get services --namespace <namespace>
+{{% param cliToolName %}} get services --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -57,7 +57,7 @@ Service IP (CLUSTER-IP) addresses stay the same for the duration of the Service'
 By executing the following command:
 
 ```bash
-{{% param cliToolName %}} get service example-web-go -o yaml --namespace <namespace>
+{{% param cliToolName %}} get service example-web-go -o yaml --namespace +username+
 ```
 
 You get additional information:
@@ -72,7 +72,7 @@ metadata:
   managedFields:
     ...
   name: example-web-go
-  namespace: <namespace>
+  namespace: +username+
   ...
 spec:
   clusterIP: 10.43.91.62
@@ -92,7 +92,7 @@ status:
 The Service's `selector` defines which Pods are being used as Endpoints. This happens based on labels. Look at the configuration of Service and Pod in order to find out what maps to what:
 
 ```bash
-{{% param cliToolName %}} get service example-web-go -o yaml --namespace <namespace>
+{{% param cliToolName %}} get service example-web-go -o yaml --namespace +username+
 ```
 
 ```
@@ -105,11 +105,11 @@ The Service's `selector` defines which Pods are being used as Endpoints. This ha
 With the following command you get details from the Pod:
 
 {{% alert title="Note" color="primary" %}}
-First, get all Pod names from your namespace with (`{{% param cliToolName %}} get pods --namespace <namespace>`) and then replace \<pod\> in the following command. If you have installed and configured the bash completion, you can also press the TAB key for autocompletion of the Pod's name.
+First, get all Pod names from your namespace with (`{{% param cliToolName %}} get pods --namespace +username+`) and then replace \<pod\> in the following command. If you have installed and configured the bash completion, you can also press the TAB key for autocompletion of the Pod's name.
 {{% /alert %}}
 
 ```bash
-{{% param cliToolName %}} get pod <pod> -o yaml --namespace <namespace>
+{{% param cliToolName %}} get pod <pod> -o yaml --namespace +username+
 ```
 
 Let's have a look at the label section of the Pod and verify that the Service selector matches the Pod's labels:
@@ -125,7 +125,7 @@ This link between Service and Pod can also be displayed in an easier fashion wit
 
 
 ```bash
-{{% param cliToolName %}} describe service example-web-go --namespace <namespace>
+{{% param cliToolName %}} describe service example-web-go --namespace +username+
 ```
 
 ```
@@ -159,11 +159,11 @@ As you see in the resource definition at `spec.rules[0].http.paths[0].backend.se
 Let's create the Ingress resource with:
 
 ```bash
-kubectl create -f <path to ingress.yaml> --namespace <namespace>
+kubectl create -f <path to ingress.yaml> --namespace +username+
 ```
 
 {{% onlyWhenNot mobi %}}
-Afterwards, we are able to access our freshly created Ingress at `http://example-web-go-<namespace>.<domain>`
+Afterwards, we are able to access our freshly created Ingress at `http://example-web-go-+username+.<domain>`
 {{% /onlyWhenNot %}}
 {{% onlyWhen mobi %}}
 Afterwards, we are able to access our freshly created Ingress at `https://example-web-go-<namespace>.phoenix.mobicorp.test`. It might take some minutes until the DNS for your Ingress is created. You can verify the Ingress later.
@@ -195,19 +195,19 @@ In order to switch the Service type, we are going to delete the `ClusterIP` Serv
 
 
 ```bash
-kubectl delete service example-web-go --namespace=<namespace>
+kubectl delete service example-web-go --namespace=+username+
 ```
 
 With the following command we create a Service:
 
 ```bash
-kubectl expose deployment example-web-go --type=NodePort --name=example-web-go --port=5000 --target-port=5000 --namespace <namespace>
+kubectl expose deployment example-web-go --type=NodePort --name=example-web-go --port=5000 --target-port=5000 --namespace +username+
 ```
 
 Let's have a more detailed look at our Service:
 
 ```bash
-kubectl get services --namespace <namespace>
+kubectl get services --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -255,22 +255,22 @@ Or go to the **Service Discovery** tab and look for your Service name. The link 
 
 ## Task {{% param sectionnumber %}}.3 (optional): For fast learners
 
-Have a closer look at the resources created in your namespace `<namespace>` with the following commands and try to understand them:
+Have a closer look at the resources created in your namespace `+username+` with the following commands and try to understand them:
 
 ```bash
-{{% param cliToolName %}} describe namespace <namespace>
+{{% param cliToolName %}} describe namespace +username+
 ```
 
 ```bash
-{{% param cliToolName %}} get all --namespace <namespace>
+{{% param cliToolName %}} get all --namespace +username+
 ```
 
 ```bash
-{{% param cliToolName %}} describe <resource> <name> --namespace <namespace>
+{{% param cliToolName %}} describe <resource> <name> --namespace +username+
 ```
 
 ```bash
-{{% param cliToolName %}} get <resource> <name> -o yaml --namespace <namespace>
+{{% param cliToolName %}} get <resource> <name> -o yaml --namespace +username+
 ```
 
 

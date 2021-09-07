@@ -61,18 +61,18 @@ Before actually deploying our generated chart, we can check the (to be) generate
 
 
 ```bash
-helm install --dry-run --debug --namespace <namespace> myfirstrelease ./mychart
+helm install --dry-run --debug --namespace +username+ myfirstrelease ./mychart
 ```
 
 
 Finally, the following command creates a new release and deploys the application:
 
 ```bash
-helm install --namespace <namespace> myfirstrelease ./mychart
+helm install --namespace +username+ myfirstrelease ./mychart
 ```
 
 
-With `{{% param cliToolName %}} get pods --namespace <namespace>` you should see a new Pod:
+With `{{% param cliToolName %}} get pods --namespace +username+` you should see a new Pod:
 
 ```bash
 NAME                                     READY   STATUS    RESTARTS   AGE
@@ -82,12 +82,12 @@ myfirstrelease-mychart-6d4956b75-ng8x4   1/1     Running   0          2m21s
 You can list the newly created Helm release with the following command:
 
 ```bash
-helm ls --namespace <namespace>
+helm ls --namespace +username+
 ```
 
 ```
 NAME            NAMESPACE       REVISION  UPDATED                                   STATUS    CHART        APP VERSION
-myfirstrelease  <namespace>     1         2021-04-14 14:29:58.808282266 +0200 CEST  deployed  mychart-0.1.01.16.0  
+myfirstrelease  +username+     1         2021-04-14 14:29:58.808282266 +0200 CEST  deployed  mychart-0.1.01.16.0
 ```
 
 
@@ -149,7 +149,7 @@ spec:
 Thus, we need to change this value inside our `mychart/values.yaml` file. This is also where we enable the TLS part:
 
 {{% alert title="Note" color="primary" %}}
-Make sure to replace the `<namespace>` and `<appdomain>` accordingly.
+Make sure to replace the `+username+` and `<appdomain>` accordingly.
 {{% /alert %}}
 
 {{% onlyWhen openshift %}}
@@ -161,14 +161,14 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: mychart-<namespace>-<appdomain>
+    - secretName: mychart-+username+-<appdomain>
       hosts:
-        - mychart-<namespace>.<appdomain>
+        - mychart-+username+.<appdomain>
 ```
 
 {{% /onlyWhen %}}
@@ -181,13 +181,13 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
         - path: /
   tls:
-    - secretName: mychart-<namespace>-<appdomain>
+    - secretName: mychart-+username+-<appdomain>
       hosts:
-        - mychart-<namespace>.<appdomain>
+        - mychart-+username+.<appdomain>
 ```
 
 {{% /onlyWhenNot %}}
@@ -203,7 +203,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
       - path: /
   tls: []
@@ -217,14 +217,14 @@ ingress:
 {{% alert title="Note" color="primary" %}}
 Make sure to set the proper value as hostname. `<appdomain>` will be provided by the trainer.
 {{% onlyWhen mobi %}}
-Use `mychart-<namespace>.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
+Use `mychart-+username+.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
 {{% /onlyWhen %}}
 {{% /alert %}}
 
 Apply the change by upgrading our release:
 
 ```bash
-helm upgrade --namespace <namespace> myfirstrelease ./mychart
+helm upgrade --namespace +username+ myfirstrelease ./mychart
 ```
 
 This will result in something similar to:
@@ -233,16 +233,16 @@ This will result in something similar to:
 Release "myfirstrelease" has been upgraded. Happy Helming!
 NAME: myfirstrelease
 LAST DEPLOYED: Wed Dec  2 14:44:42 2020
-NAMESPACE: <namespace>
+NAMESPACE: +username+
 STATUS: deployed
 REVISION: 2
 NOTES:
 1. Get the application URL by running these commands:
-  http://mychart-<namespace>.<appdomain>/
+  http://mychart-+username+.<appdomain>/
 ```
 
 {{% onlyWhenNot mobi %}}
-Check whether the ingress was successfully deployed by accessing the URL `http://mychart-<namespace>.<appdomain>/`
+Check whether the ingress was successfully deployed by accessing the URL `http://mychart-+username+.<appdomain>/`
 
 {{% onlyWhen openshift %}}
 {{% alert title="Note" color="primary" %}}
@@ -252,7 +252,7 @@ It might take a moment until the app is accessible.
 
 {{% /onlyWhenNot %}}
 {{% onlyWhen mobi %}}
-Check whether the ingress was successfully deployed by accessing the URL `http://mychart-<namespace>.<appdomain>/`
+Check whether the ingress was successfully deployed by accessing the URL `http://mychart-+username+.<appdomain>/`
 
 {{% /onlyWhen %}}
 
@@ -267,7 +267,7 @@ Update the replica count of your nginx Deployment to 2 using `--set name=value`
 ### Solution Task {{% param sectionnumber %}}.4
 
 ```bash
-helm upgrade --namespace <namespace> --set replicaCount=2 myfirstrelease ./mychart
+helm upgrade --namespace +username+ --set replicaCount=2 myfirstrelease ./mychart
 ```
 
 Values that have been set using `--set` can be reset by helm upgrade with `--reset-values`.
@@ -276,7 +276,7 @@ Verify the replicaCount with the following command:
 
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 ```
@@ -294,24 +294,24 @@ In the previous tasks, you might have noticed the `REVISION` be increased each t
 Every change you make to a release by installing or upgrading it will increase the `REVISION`. The actual deployed revision can be displayed with the following command:
 
 ```bash
-helm ls --namespace <namespace>
+helm ls --namespace +username+
 ```
 
 ```
 NAME            NAMESPACE       REVISION  UPDATED                                   STATUS    CHART        APP VERSION
-myfirstrelease  <namespace>     3         2021-04-14 14:29:58.808282266 +0200 CEST  deployed  mychart-0.1.01.16.0  
+myfirstrelease  +username+     3         2021-04-14 14:29:58.808282266 +0200 CEST  deployed  mychart-0.1.01.16.0
 ```
 
 Let's now rollback our release `myfirstrelease` to revision 2.
 
 ```bash
-helm rollback myfirstrelease 2 --namespace <namespace>
+helm rollback myfirstrelease 2 --namespace +username+
 ```
 
 The replicaCount should be back down to 1 after the rollback. Check if that's true with the following command:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 ```
@@ -330,7 +330,7 @@ Have a look at the `values.yaml` file in your chart and study all the possible c
 To remove an application, simply remove the Helm release with the following command:
 
 ```bash
-helm uninstall myfirstrelease --namespace <namespace>
+helm uninstall myfirstrelease --namespace +username+
 ```
 
-Do this with our deployed release. With `{{% param cliToolName %}} get pods --namespace <namespace>` you should no longer see your application Pod.
+Do this with our deployed release. With `{{% param cliToolName %}} get pods --namespace +username+` you should no longer see your application Pod.
