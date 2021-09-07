@@ -53,7 +53,7 @@ We use the project `kubernetes-techlab` on the `kubedev` cluster.
 ## Task {{% param sectionnumber %}}.3: Namespace creation
 
 As we are working with a webshell environment, the namespace you're going to work with already exists.
-However, if it didn't here's how you can find out how to do just that.
+However, if it didn't, here's how you can find out how to do just that.
 
 Execute the `kubectl help` command to figure out the right command:
 

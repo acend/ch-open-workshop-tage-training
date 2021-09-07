@@ -7,4 +7,4 @@ sectionnumber: 3.1
 
 ## Task {{% param sectionnumber %}}.1: Preparation
 
-Please make sure you completed all the steps from [lab 2.1](..02/01_gettingstarted/) and you're ready to go!
+Please make sure you completed all the steps from [lab 2.1](../02/01_gettingstarted/) and you're ready to go!
