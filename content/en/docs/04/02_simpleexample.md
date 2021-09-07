@@ -64,8 +64,8 @@ argocd app get argo-+username+
 ```
 Project:            default
 Server:             https://kubernetes.default.svc
-Namespace:          +username+
-URL:                https://{{% param argoCdUrl %}}/applications/argo-+username+
+Namespace:          <namespace>
+URL:                https://{{% param argoCdUrl %}}/applications/argo-<namespace>
 Repo:               https://{{% param giteaUrl %}}/<github-username>/argocd-training-examples.git
 Target:
 Path:               example-app
@@ -75,8 +75,8 @@ Sync Status:        OutOfSync from  (5a6f365)
 Health Status:      Missing
 
 GROUP  KIND        NAMESPACE    NAME           STATUS     HEALTH   HOOK  MESSAGE
-       Service     +username+        simple-example  OutOfSync  Missing
-apps   Deployment  +username+        simple-example  OutOfSync  Missing
+       Service     <namespace>  simple-example OutOfSync  Missing
+apps   Deployment  <namespace>  simple-example OutOfSync  Missing
 ```
 
 The application status is initially in OutOfSync state. To sync (deploy) the resource manifests, run:
@@ -92,16 +92,16 @@ But from now on, all resources are managed by Argo CD. Congrats, this was the fi
 You should see an output similar to the following lines:
 
 ```
-TIMESTAMP                  GROUP        KIND   NAMESPACE  NAME            STATUS    HEALTH        HOOK  MESSAGE
-2021-03-24T14:19:16+01:00            Service   +username+      simple-example  OutOfSync  Missing
-2021-03-24T14:19:16+01:00   apps  Deployment   +username+      simple-example  OutOfSync  Missing
-2021-03-24T14:19:16+01:00            Service   +username+      simple-example  Synced     Healthy
+TIMESTAMP                  GROUP        KIND   NAMESPACE    NAME            STATUS     HEALTH        HOOK  MESSAGE
+2021-03-24T14:19:16+01:00            Service   <namespace>  simple-example  OutOfSync  Missing
+2021-03-24T14:19:16+01:00   apps  Deployment   <namespace>  simple-example  OutOfSync  Missing
+2021-03-24T14:19:16+01:00            Service   <namespace>  simple-example  Synced     Healthy
 
-Name:               argo-+username+
+Name:               argo-<namespace>
 Project:            default
 Server:             https://kubernetes.default.svc
-Namespace:          +username+
-URL:                https://{{% param argoCdUrl %}}/applications/argo-+username+
+Namespace:          <namespace>
+URL:                https://{{% param argoCdUrl %}}/applications/argo-<namespace>
 Repo:               https://{{% param giteaUrl %}}/<github-username>/argocd-training-examples.git
 Target:
 Path:               example-app
@@ -118,9 +118,9 @@ Finished:           2021-03-24 14:19:16 +0100 CET
 Duration:           0s
 Message:            successfully synced (all tasks run)
 
-GROUP  KIND        NAMESPACE    NAME           STATUS  HEALTH       HOOK  MESSAGE
-       Service     +username+        simple-example  Synced  Healthy            service/simple-example created
-apps   Deployment  +username+        simple-example  Synced  Progressing        deployment.apps/simple-example created
+GROUP  KIND        NAMESPACE    NAME            STATUS  HEALTH       HOOK  MESSAGE
+       Service     <namespace>  simple-example  Synced  Healthy            service/simple-example created
+apps   Deployment  <namespace>  simple-example  Synced  Progressing        deployment.apps/simple-example created
 ```
 
 Check the Argo CD UI to browse the application and their components.
@@ -211,11 +211,11 @@ The parameter `--refresh` triggers an update against the Git repository. The rep
 You will see that the Deployment is now OutOfSync:
 
 ```
-Name:               argo-+username+
+Name:               argo-<namespace>
 Project:            default
 Server:             https://kubernetes.default.svc
-Namespace:          +username+
-URL:                https://{{% param argoCdUrl %}}/applications/argo-+username+
+Namespace:          <namespace>
+URL:                https://{{% param argoCdUrl %}}/applications/argo-<namespace>
 Repo:               https://{{% param giteaUrl %}}/<github-username>/argocd-training-examples.git
 Target:
 Path:               example-app
@@ -225,8 +225,8 @@ Sync Status:        OutOfSync from  (e2d4bbf)
 Health Status:      Healthy
 
 GROUP  KIND        NAMESPACE    NAME            STATUS     HEALTH   HOOK  MESSAGE
-       Service     +username+        simple-example  Synced     Healthy        service/simple-example created
-apps   Deployment  +username+        simple-example  OutOfSync  Healthy        deployment.apps/simple-example created
+       Service     <namespace>  simple-example  Synced     Healthy        service/simple-example created
+apps   Deployment  <namespace>  simple-example  OutOfSync  Healthy        deployment.apps/simple-example created
 ```
 
 When an application is OutOfSync then your deployed 'live state' is no longer the same as the 'target state' which is represented by the resource manifests in the Git repository. You can inspect the differences between live and target state using the `diff` subcommand:
@@ -238,7 +238,7 @@ argocd app diff argo-+username+
 This should give you an output similar to:
 
 ```
-===== apps/Deployment +username+/simple-example ======
+===== apps/Deployment <namespace>/simple-example ======
 101c102
 <   replicas: 1
 ---
@@ -266,11 +266,11 @@ argocd app get argo-+username+
 ```
 
 ```
-Name:               argo-+username+
+Name:               argo-<namespace>
 Project:            default
 Server:             https://kubernetes.default.svc
-Namespace:          +username+
-URL:                https://{{% param argoCdUrl %}}/applications/argo-+username+
+Namespace:          <namespace>
+URL:                https://{{% param argoCdUrl %}}/applications/argo-<namespace>
 Repo:               https://{{% param giteaUrl %}}/<github-username>/argocd-training-examples.git
 Target:
 Path:               example-app
@@ -280,8 +280,8 @@ Sync Status:        Synced to  (e2d4bbf)
 Health Status:      Healthy
 
 GROUP  KIND        NAMESPACE    NAME            STATUS  HEALTH   HOOK  MESSAGE
-       Service     +username+        simple-example  Synced  Healthy        service/simple-example unchanged
-apps   Deployment  +username+        simple-example  Synced  Healthy        deployment.apps/simple-example configured
+       Service     <namespace>        simple-example  Synced  Healthy        service/simple-example unchanged
+apps   Deployment  <namespace>        simple-example  Synced  Healthy        deployment.apps/simple-example configured
 ```
 
 Argo CD can automatically sync an application when it detects differences between the desired manifests in the repository and the live state on the cluster. A benefit of automatic sync is that CI/CD pipelines no longer need direct access to the Argo CD API server to perform the deployment. Instead, the pipeline makes a commit and pushes it to the repository.
@@ -360,8 +360,8 @@ You can see that even with auto-sync and self-healing enabled the status is stil
 
 ```
 GROUP  KIND        NAMESPACE    NAME            STATUS     HEALTH   HOOK  MESSAGE
-apps   Deployment  +username+        simple-example  Synced     Healthy        deployment.apps/simple-exampleconfigured
-       Service     +username+        simple-example  OutOfSync  Healthy
+apps   Deployment  <namespace>  simple-example  Synced     Healthy        deployment.apps/simple-exampleconfigured
+       Service     <namespace>  simple-example  OutOfSync  Healthy
 ```
 
 Now enable the auto-pruning explicitly:
@@ -378,8 +378,8 @@ argocd app get argo-+username+ --refresh
 
 ```
 GROUP  KIND        NAMESPACE    NAME            STATUS     HEALTH   HOOK  MESSAGE
-       Service     +username+        simple-example  Succeeded  Pruned         pruned
-apps   Deployment  +username+        simple-example  Synced     Healthy        deployment.apps/simple-example unchanged
+       Service     <namespace>  simple-example  Succeeded  Pruned         pruned
+apps   Deployment  <namespace>  simple-example  Synced     Healthy        deployment.apps/simple-example unchanged
 ```
 
 The Service was successfully deleted by Argo CD because the manifest was removed from the repository. See the HEALTH and MESSAGE columns of the previous console output.
