@@ -3,7 +3,7 @@ title: "1.9 Building your own Docker image"
 weight: 19
 ---
 
-From the [previous lab](../09/):
+From the [previous lab](../08_linkingfrontendandbackend/):
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
 

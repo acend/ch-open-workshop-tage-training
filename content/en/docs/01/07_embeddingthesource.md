@@ -3,7 +3,7 @@ title: "1.7 Embedding the source code"
 weight: 17
 ---
 
-From the [previous lab](../07/):
+From the [previous lab](../06_frontendcontainer/):
 
 > Question: Why? Why do I get this error? Is there no other way to access the web server via private IP?
 

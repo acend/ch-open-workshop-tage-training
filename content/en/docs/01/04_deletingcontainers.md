@@ -3,7 +3,7 @@ title: "1.4 Deleting containers"
 weight: 14
 ---
 
-From the [previous lab](../03/):
+From the [previous lab](../03_environmentvariables/):
 
 > Question: Do we need two running MariaDB containers at the same time for this lab?
 

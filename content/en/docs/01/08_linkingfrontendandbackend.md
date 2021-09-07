@@ -3,7 +3,7 @@ title: "1.8 Linking frontend and backend"
 weight: 18
 ---
 
-From the [previous lab](../08/):
+From the [previous lab](../07_embeddingthesource/):
 
 > Question: Can I somehow link the containers together, so that they can talk to each other?
 

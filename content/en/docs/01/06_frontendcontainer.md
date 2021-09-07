@@ -3,7 +3,7 @@ title: "1.6 Frontend container"
 weight: 16
 ---
 
-From the [previous lab](../06/):
+From the [previous lab](../05_names/):
 
 > Question: I'm feeling like a Docker king/queen... What's next?
 

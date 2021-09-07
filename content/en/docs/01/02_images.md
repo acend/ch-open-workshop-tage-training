@@ -3,7 +3,7 @@ title: "1.2 Images"
 weight: 12
 ---
 
-From the [previous lab](../01/):
+From the [previous lab](../01_gettingstarted/):
 
 > Question: Is there only a "hello world" Docker image?
 
