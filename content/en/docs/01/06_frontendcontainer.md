@@ -96,38 +96,11 @@ docker inspect apache-php | grep IPAddress
 ...
 ```
 
-With the IP from the inspection we can now navigate to the web server at <http://172.17.0.4>.
-
-{{% alert title="Note" color="primary" %}}
-As the Docker Linux bridge is not reachable from your Windows or MacOS host you cannot access the container directly via IP address.
-See:
-
-* <https://docs.docker.com/docker-for-windows/networking/>
-* <https://docs.docker.com/docker-for-mac/networking/>
-
-If you've already started the `apache-php` container without port forwarding you have to stop and remove it first:
+With the IP from the inspection we can now reach the webserver <http://172.17.0.4>:
 
 ```bash
-docker stop apache-php
-docker rm apache-php
+curl http://172.17.0.4
 ```
-
-Now start the container again with port forwarding:
-
-```bash
-docker run -p 8080:80 -d --name apache-php php:7-apache
-```
-
-Now you can access the web server at <http://LOCALHOST:8080>.
-{{% /alert %}}
-
-{{% alert title="Note for play-with-docker.com" color="primary" %}}
-This is not possible without port forwarding, see [next lab](../08/).
-{{% /alert %}}
-
-{{% alert title="Note" color="primary" %}}
-It might be that your local firewall blocks requests to this address.
-{{% /alert %}}
 
 And unfortunately we get a "403 Error - Forbidden".
 

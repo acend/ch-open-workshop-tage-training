@@ -77,7 +77,7 @@ Execute an interactive `bash` shell on the mariadb container.
 docker exec -it mariadb-container-with-existing-external-volume bash
 ```
 
-You are now in the Bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
+You are now in the bash session of the mariadb container and the prompt will look like `root@6f08ac657320:/#`
 
 Get the address of the `apache-php` container.
 
@@ -87,7 +87,7 @@ getent hosts apache-php
 
 The two containers are now able to talk to each other. But let's check this:
 
-If you type <http://LOCALHOST:8080/db.php> in your browser you should get... an error!
+If you type <http://<apache-php container's IP address>:8080/db.php> in your browser you should get... an error!
 Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
