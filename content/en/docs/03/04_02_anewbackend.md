@@ -430,7 +430,7 @@ database:
 Finally, to upgrade the existing release run:
 
 ```bash
-helm upgrade myapp ./mychart --namespace <namespace>
+helm upgrade myapp ./mychart --namespace +username+
 ```
 
 {{% alert title="Note" color="primary" %}}
@@ -566,7 +566,7 @@ database:
 To upgrade your existing release run:
 
 ```bash
-helm upgrade myapp ./mychart --namespace <namespace>
+helm upgrade myapp ./mychart --namespace +username+
 ```
 
 
@@ -580,5 +580,5 @@ Check whether the attachment of the new backend worked by either looking at the 
 If you're happy with the result, clean up your namespace:
 
 ```bash
-helm uninstall myapp --namespace <namespace>
+helm uninstall myapp --namespace +username+
 ```

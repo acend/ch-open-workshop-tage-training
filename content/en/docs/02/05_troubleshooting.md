@@ -21,16 +21,16 @@ With {{% param distroName %}} you can open a remote shell into a Pod without ins
 On Windows, you can use Git Bash and `winpty`.
 {{% /alert %}}
 
-Choose a Pod with `{{% param cliToolName %}} get pods --namespace <namespace>` and execute the following command:
+Choose a Pod with `{{% param cliToolName %}} get pods --namespace +username+` and execute the following command:
 {{% onlyWhenNot openshift %}}
 ```bash
-kubectl exec -it <pod> --namespace <namespace> -- /bin/bash
+kubectl exec -it <pod> --namespace +username+ -- /bin/bash
 ```
 {{% /onlyWhenNot %}}
 
 {{% onlyWhen openshift %}}
 ```bash
-oc rsh --namespace <namespace> <pod>
+oc rsh --namespace +username+ <pod>
 ```
 {{% /onlyWhen %}}
 {{% onlyWhenNot openshift %}}
@@ -66,13 +66,13 @@ exit
 Single commands inside a container can also be executed with `kubectl exec`:
 
 ```bash
-kubectl exec <pod> --namespace <namespace> -- env
+kubectl exec <pod> --namespace +username+ -- env
 ```
 
 Example:
 
 ```bash
-$ kubectl exec example-web-python-69b658f647-xnm94 --namespace <namespace> -- env
+$ kubectl exec example-web-python-69b658f647-xnm94 --namespace +username+ -- env
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=example-web-python-xnm94
 KUBERNETES_SERVICE_PORT_DNS_TCP=53
@@ -87,7 +87,7 @@ KUBERNETES_PORT_53_TCP=tcp://172.30.0.1:53
 Single commands inside a container can also be executed with `oc rsh`:
 
 ```bash
-oc rsh --namespace <namespace> <pod> <command>
+oc rsh --namespace +username+ <pod> <command>
 ```
 
 Example:
@@ -120,7 +120,7 @@ Log files of a Pod can be shown with the following command:
 
 
 ```bash
-{{% param cliToolName %}} logs <pod> --namespace <namespace>
+{{% param cliToolName %}} logs <pod> --namespace +username+
 ```
 
 The parameter `-f` allows you to follow the log file (same as `tail -f`). With this, log files are streamed and new entries are shown immediately.
@@ -128,7 +128,7 @@ The parameter `-f` allows you to follow the log file (same as `tail -f`). With t
 When a Pod is in state `CrashLoopBackOff` it means that although multiple attempts have been made, no container inside the Pod could be started successfully. Now even though no container might be running at the moment the `{{% param cliToolName %}} logs` command is executed, there is a way to view the logs the application might have generated. This is achieved using the `-p` or `--previous` parameter:
 
  ```bash
-{{% param cliToolName %}} logs -p <pod> --namespace <namespace>
+{{% param cliToolName %}} logs -p <pod> --namespace +username+
 ```
 
 
@@ -139,13 +139,13 @@ When a Pod is in state `CrashLoopBackOff` it means that although multiple attemp
 Get the name of the Pod:
 
 ```bash
-{{% param cliToolName %}} get pod --namespace <namespace>
+{{% param cliToolName %}} get pod --namespace +username+
 ```
 
 Then execute the port forwarding command using the Pod's name:
 
 ```bash
-{{% param cliToolName %}} port-forward <pod> 5000:5000 --namespace <namespace>
+{{% param cliToolName %}} port-forward <pod> 5000:5000 --namespace +username+
 ```
 
 {{% alert title="Note" color="primary" %}}
@@ -183,7 +183,7 @@ At this point, you are able to visualize your progress on the labs by browsing t
 You may need to set some extra permissions to let the dashboard monitor your progress. Have fun!
 
 ```bash
-{{% param cliToolName %}} create rolebinding progress --clusterrole=view --serviceaccount=<namespace>:default --namespace=<namespace>
+{{% param cliToolName %}} create rolebinding progress --clusterrole=view --serviceaccount=+username+:default --namespace=+username+
 ```
 
 
@@ -196,5 +196,5 @@ Make sure to have a look at the events because they can give you more informatio
 Use the following command to list the events in chronological order:
 
 ```bash
-{{% param cliToolName %}} get events --sort-by=.metadata.creationTimestamp --namespace <namespace>
+{{% param cliToolName %}} get events --sort-by=.metadata.creationTimestamp --namespace +username+
 ```

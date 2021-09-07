@@ -88,13 +88,13 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mychart-<namespace>.<appdomain>
+    - host: mychart-+username+.<appdomain>
       paths:
         - path: /
   tls:
-    - secretName: mychart-<namespace>-<appdomain>
+    - secretName: mychart-+username+-<appdomain>
       hosts:
-        - mychart-<namespace>.<appdomain>
+        - mychart-+username+.<appdomain>
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

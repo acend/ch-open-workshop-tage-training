@@ -47,7 +47,7 @@ MARIADB_VERSION         Version of MariaDB image to be used (10.2 or latest).   
 As you might already see, each of the parameters has a default value ("VALUE" column). Also, the parameters `MYSQL_USER`, `MYSQL_PASSWORD` and `MYSQL_ROOT_PASSWORD` are going to be generated ("GENERATOR" is set to `expression` and "VALUE" contains a regular expression). This means we don't necessarily have to overwrite any of them so let's simply use those defaults:
 
 ```bash
-oc process openshift//mariadb-ephemeral -pMYSQL_DATABASE=acendexampledb  | oc apply --namespace=<namespace> -f -
+oc process openshift//mariadb-ephemeral -pMYSQL_DATABASE=acendexampledb  | oc apply --namespace=+username+ -f -
 ```
 
 
@@ -66,14 +66,14 @@ The Template's content reveals a Secret, a Service and a DeploymentConfig.
 We are first going to create a so-called _Secret_ in which we store sensitive data like the database name, the password, the root password, and the username. The secret will be used to access the database and also to create the initial database.
 
 ```bash
-kubectl create secret generic mariadb --from-literal=database-name=acendexampledb --from-literal=database-password=mysqlpassword --from-literal=database-root-password=mysqlrootpassword --from-literal=database-user=acend-user --namespace <namespace>
+kubectl create secret generic mariadb --from-literal=database-name=acendexampledb --from-literal=database-password=mysqlpassword --from-literal=database-root-password=mysqlrootpassword --from-literal=database-user=acend-user --namespace +username+
 ```
 {{% /onlyWhenNot %}}
 
 The Secret contains the database name, user, password, and the root password. However, these values will neither be shown with `{{% param cliToolName %}} get` nor with `{{% param cliToolName %}} describe`:
 
 ```bash
-{{% param cliToolName %}} get secret mariadb --output yaml --namespace <namespace>
+{{% param cliToolName %}} get secret mariadb --output yaml --namespace +username+
 ```
 
 ```
@@ -109,7 +109,7 @@ By default, Secrets are not encrypted!
 The interesting thing about Secrets is that they can be reused. We could extract all the plaintext values from the Secret, but it's way easier to instead simply refer to its values inside the Deployment or DeploymentConfig (as in this lab):
 
 ```bash
-oc get dc mariadb --output yaml --namespace <namespace>
+oc get dc mariadb --output yaml --namespace +username+
 ```
 
 ```
@@ -179,7 +179,7 @@ Save this snippet as `mariadb.yaml`:
 Execute it with:
 
 ```bash
-kubectl create -f mariadb.yaml --namespace <namespace>
+kubectl create -f mariadb.yaml --namespace +username+
 ```
 
 As soon as the container image for `mariadb:10.5` has been pulled, you will see a new Pod using `kubectl get pods`.
@@ -204,8 +204,8 @@ For the actual MariaDB host, you can either use the MariaDB Service's ClusterIP 
 The following commands set the environment variables for the deployment configuration of the `example-web-python` application
 
 ```bash
-{{% param cliToolName %}} set env --from=secret/mariadb --prefix=MYSQL_ deploy/example-web-python --namespace <namespace>
-{{% param cliToolName %}} set env deploy/example-web-python MYSQL_URI='mysql://$(MYSQL_DATABASE_USER):$(MYSQL_DATABASE_PASSWORD)@mariadb-svc/$(MYSQL_DATABASE_NAME)' --namespace <namespace>
+{{% param cliToolName %}} set env --from=secret/mariadb --prefix=MYSQL_ deploy/example-web-python --namespace +username+
+{{% param cliToolName %}} set env deploy/example-web-python MYSQL_URI='mysql://$(MYSQL_DATABASE_USER):$(MYSQL_DATABASE_PASSWORD)@mariadb-svc/$(MYSQL_DATABASE_NAME)' --namespace +username+
 ```
 
 The first command inserts the values from the Secret, the second finally uses these values to put them in the environment variable `MYSQL_URI` which the application considers.
@@ -213,7 +213,7 @@ The first command inserts the values from the Secret, the second finally uses th
 You could also do the changes by directly editing the Deployment:
 
 ```bash
-{{% param cliToolName %}} edit deployment example-web-python --namespace <namespace>
+{{% param cliToolName %}} edit deployment example-web-python --namespace +username+
 ```
 
 ```yaml
@@ -262,7 +262,7 @@ As described in [lab 5](./05_troubleshooting/) we can log into a Pod with {{% on
 Show all Pods:
 
 ```bash
-{{% param cliToolName %}} get pods --namespace <namespace>
+{{% param cliToolName %}} get pods --namespace +username+
 ```
 
 Which gives you an output similar to this:
@@ -277,12 +277,12 @@ mariadb-1-deploy                      0/1     Completed   0          11m
 Log into the MariaDB Pod:
 {{% onlyWhenNot openshift %}}
 ```bash
-kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace <namespace> -- /bin/bash
+kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace +username+ -- /bin/bash
 ```
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
 ```bash
-oc rsh --namespace <namespace> mariadb-f845ccdb7-hf2x5
+oc rsh --namespace +username+ mariadb-f845ccdb7-hf2x5
 ```
 {{% /onlyWhen %}}
 
@@ -326,19 +326,19 @@ This is how you copy the database dump into the Pod:
 
 ```bash
 curl -O https://raw.githubusercontent.com/acend/kubernetes-basics-training/master/content/en/docs/07/dump.sql
-{{% param cliToolName %}} cp ./dump.sql <mariadb-pod>:/tmp/ --namespace <namespace>
+{{% param cliToolName %}} cp ./dump.sql <mariadb-pod>:/tmp/ --namespace +username+
 ```
 
 This is how you log into the MySQL Pod:
 
 {{% onlyWhenNot openshift %}}
 ```bash
-kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace <namespace> -- /bin/bash
+kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace +username+ -- /bin/bash
 ```
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
 ```bash
-oc rsh --namespace <namespace> mariadb-f845ccdb7-hf2x5
+oc rsh --namespace +username+ mariadb-f845ccdb7-hf2x5
 ```
 {{% /onlyWhen %}}
 
@@ -365,12 +365,12 @@ A database dump can be created as follows:
 
 {{% onlyWhenNot openshift %}}
 ```bash
-kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace <namespace> -- /bin/bash
+kubectl exec -it mariadb-f845ccdb7-hf2x5 --namespace +username+ -- /bin/bash
 ```
 {{% /onlyWhenNot %}}
 {{% onlyWhen openshift %}}
 ```bash
-oc rsh --namespace <namespace> mariadb-f845ccdb7-hf2x5
+oc rsh --namespace +username+ mariadb-f845ccdb7-hf2x5
 ```
 {{% /onlyWhen %}}
 

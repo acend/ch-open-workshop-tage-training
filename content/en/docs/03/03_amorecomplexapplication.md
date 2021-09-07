@@ -57,7 +57,7 @@ containerSecurityContext:
 {{% /onlyWhen %}}
 ingress:
   enabled: true
-  hostname: wordpress-<namespace>.<appdomain>
+  hostname: wordpress-+username+.<appdomain>
 
 mariadb:
   primary:
@@ -76,7 +76,7 @@ Make sure to set the proper value as hostname. `<appdomain>` will be provided by
 {{% /alert %}}
 
 {{% onlyWhen mobi %}}
-Use `wordpress-<namespace>.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
+Use `wordpress-+username+.kubedev.mobicorp.test` as your hostname. It might take some time until your ingress hostname is accessible, as the DNS name first has to be propagated correctly.
 {{% /onlyWhen %}}
 
 If you look inside the [Chart.yaml](https://github.com/bitnami/charts/blob/master/bitnami/wordpress/Chart.yaml) file of the WordPress chart, you'll see a dependency to the [MariaDB Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/mariadb). All the MariaDB values are used by this dependent Helm chart and the chart is automatically deployed when installing WordPress.
@@ -117,7 +117,7 @@ updateStrategy:
 
 ingress:
   enabled: true
-  hostname: wordpress-<namespace>.kubedev.mobicorp.test
+  hostname: wordpress-+username+.kubedev.mobicorp.test
 
 mariadb:
   image:
@@ -128,7 +128,7 @@ mariadb:
       size: 1Gi
 ```
 
-Make sure to replace `<namespace>`.
+Make sure to replace `+username+`.
 
 The image tag remains as already defined in the orginial [`values.yaml`](https://github.com/bitnami/charts/blob/master/bitnami/wordpress/values.yaml) file from the chart.
 
@@ -163,26 +163,26 @@ Subcharts are an alternative way to define dependencies within a chart: A chart 
 We are now going to deploy the application in a specific version (which is not the latest release on purpose). Also note that we define our custom `values.yaml` file with the `-f` parameter:
 
 ```bash
-helm install wordpress bitnami/wordpress -f values.yaml --version 10.7.1 --namespace <namespace>
+helm install wordpress bitnami/wordpress -f values.yaml --version 10.7.1 --namespace +username+
 ```
 
 Look for the newly created resources with `helm ls` and `{{% param cliToolName %}} get deploy,pod,ingress,pvc`:
 
 ```bash
-helm ls --namespace <namespace>
+helm ls --namespace +username+
 ```
 
 which gives you:
 
 ```bash
 NAME      NAMESPACE       REVISION  UPDATED                                     STATUS    CHART             APP VERSION
-wordpress <namespace>         1     2021-03-25 14:27:38.231722961 +0100 CET     deployed  wordpress-10.7.1  5.7.0
+wordpress +username+         1     2021-03-25 14:27:38.231722961 +0100 CET     deployed  wordpress-10.7.1  5.7.0
 ```
 
 and
 
 ```bash
-{{% param cliToolName %}} get deploy,pod,ingress,pvc --namespace <namespace>
+{{% param cliToolName %}} get deploy,pod,ingress,pvc --namespace +username+
 ```
 
 which gives you:
@@ -196,7 +196,7 @@ pod/wordpress-6bf6df9c5d-w4fpx   1/1     Running   0          2m6s
 pod/wordpress-mariadb-0          1/1     Running   0          2m6s
 
 NAME                           HOSTS                                          ADDRESS       PORTS   AGE
-ingress.extensions/wordpress   wordpress-<namespace>.<appdomain>              10.100.1.10   80      2m6s
+ingress.extensions/wordpress   wordpress-+username+.<appdomain>              10.100.1.10   80      2m6s
 
 NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS            AGE
 persistentvolumeclaim/data-wordpress-mariadb-0   Bound    pvc-859fe3b4-b598-4f86-b7ed-a3a183f700fd   1Gi        RWO            cloudscale-volume-ssd   2m6s
@@ -206,7 +206,7 @@ persistentvolumeclaim/wordpress                  Bound    pvc-83ebf739-0b0e-45a2
 In order to check the values used in a given release, execute:
 
 ```bash
-helm get values wordpress --namespace <namespace>
+helm get values wordpress --namespace +username+
 ```
 
 which gives you:
@@ -218,7 +218,7 @@ containerSecurityContext:
   enabled: false
 ingress:
   enabled: true
-  hostname: wordpress-<namespace>.<appdomain>
+  hostname: wordpress-+username+.<appdomain>
 mariadb:
   primary:
     containerSecurityContext:
@@ -244,7 +244,7 @@ updateStrategy:
 USER-SUPPLIED VALUES:
 ingress:
   enabled: true
-  hostname: wordpress-<namespace>.<appdomain>
+  hostname: wordpress-+username+.<appdomain>
 mariadb:
   primary:
     persistence:
@@ -274,24 +274,24 @@ We are now going to upgrade the application to a newer Helm chart version. When 
 This is specific to the wordpress Bitami Chart, and might be different when installing other Charts.
 {{% /alert %}}
 
-Use the following commands to gather the secrets and store them in environment variables. Make sure to replace `<namespace>` with your current value.
+Use the following commands to gather the secrets and store them in environment variables:
 
 ```bash
-export WORDPRESS_PASSWORD=$({{% param cliToolName %}} get secret wordpress -o jsonpath="{.data.wordpress-password}" --namespace <namespace> | base64 --decode)
+export WORDPRESS_PASSWORD=$({{% param cliToolName %}} get secret wordpress -o jsonpath="{.data.wordpress-password}" --namespace +username+ | base64 --decode)
 ```
 
 ```bash
-export MARIADB_ROOT_PASSWORD=$({{% param cliToolName %}} get secret wordpress-mariadb -o jsonpath="{.data.mariadb-root-password}" --namespace <namespace> | base64 --decode)
+export MARIADB_ROOT_PASSWORD=$({{% param cliToolName %}} get secret wordpress-mariadb -o jsonpath="{.data.mariadb-root-password}" --namespace +username+ | base64 --decode)
 ```
 
 ```bash
-export MARIADB_PASSWORD=$({{% param cliToolName %}} get secret wordpress-mariadb -o jsonpath="{.data.mariadb-password}" --namespace <namespace> | base64 --decode)
+export MARIADB_PASSWORD=$({{% param cliToolName %}} get secret wordpress-mariadb -o jsonpath="{.data.mariadb-password}" --namespace +username+ | base64 --decode)
 ```
 
 Then do the upgrade with the following command:
 
 ```bash
-helm upgrade -f values.yaml --set wordpressPassword=$WORDPRESS_PASSWORD --set mariadb.auth.rootPassword=$MARIADB_ROOT_PASSWORD --set mariadb.auth.password=$MARIADB_PASSWORD --version 10.7.2 wordpress bitnami/wordpress --namespace <namespace>
+helm upgrade -f values.yaml --set wordpressPassword=$WORDPRESS_PASSWORD --set mariadb.auth.rootPassword=$MARIADB_ROOT_PASSWORD --set mariadb.auth.password=$MARIADB_PASSWORD --version 10.7.2 wordpress bitnami/wordpress --namespace +username+
 ```
 
 And then observe the changes in your WordPress and MariaDB Apps
@@ -300,7 +300,7 @@ And then observe the changes in your WordPress and MariaDB Apps
 ## Cleanup
 
 ```bash
-helm uninstall wordpress --namespace <namespace>
+helm uninstall wordpress --namespace +username+
 ```
 
 
