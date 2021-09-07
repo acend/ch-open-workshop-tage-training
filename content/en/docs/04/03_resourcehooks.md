@@ -9,18 +9,18 @@ In this lab you are going to learn about [resource hooks](https://argoproj.githu
 
 ## Resource hooks
 
-Hooks allow to run scripts before, during and after the Argo CD **sync** operation is running. They give you more control over the sync process. They can also run when the sync operation fails for example. The concept is very similar to the concept of [Helm Hooks](https://helm.sh/docs/topics/charts_hooks/#the-available-hooks).
+Hooks allow to run scripts before, during and after the Argo CD **sync** operation. They give you more control over the sync process. They can, e.g., also run when the sync operation fails. The concept is very similar to the concept of [Helm hooks](https://helm.sh/docs/topics/charts_hooks/#the-available-hooks).
 
 Some examples when hooks can be useful:
 
-* `PreSync` hook. Upgrading a Database, Performing a migration before deploying a new version of the application.
-* `PostSync` hook. Run integration, smoke and other tests after the deployment to verify its status.
-* `Sync` hook. Allows to run more complex deployment strategies. e.g.: Blue-Green or Canary Deployments
-* `SyncFail` hook. Clean up a failed deployment.
+* `PreSync` hook: Upgrading a database, performing a migration before deploying a new version of the application
+* `PostSync` hook: Run integration, smoke and other tests after the deployment to verify its status
+* `Sync` hook: Allows to run more complex deployment strategies, e.g., blue-green or canary deployments
+* `SyncFail` hook: Clean up a failed deployment
 
 Hooks are annotated `argocd.argoproj.io/hook: <hook>` Kubernetes resources in the source repository, which Argo CD will apply during the sync operation.
 
-A `PreSync` Hook to run a database migration might therefore look like this:
+A `PreSync` hook to run a database migration might therefore look like this:
 
 ```yaml
 apiVersion: batch/v1
@@ -35,11 +35,11 @@ metadata:
 It's basically a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) which starts a Pod that executes some sort of code.
 
 {{% alert  color="primary" title="Note" %}}
-Named hooks (i.e. ones with `/metadata/name`) will only be created once. If you want a hook to be re-created each time either use BeforeHookCreation policy or `/metadata/generateName`.
+Named hooks (i.e. ones with `/metadata/name`) will only be created once. If you want a hook to be re-created each time, either use BeforeHookCreation policy or `/metadata/generateName`.
 {{% /alert %}}
 
 {{% alert  color="primary" title="Note" %}}
-Hooks are not run during a [selective sync](https://argoproj.github.io/argo-cd/user-guide/selective_sync/)
+Hooks are not run during a [selective sync](https://argoproj.github.io/argo-cd/user-guide/selective_sync/).
 {{% /alert %}}
 
 
@@ -58,49 +58,48 @@ metadata:
 ...
 ```
 
-* `HookSucceeded`: will be deleted after the hook succeeded
-* `HookFailed`: will be deleted after a hook failed
-* `BeforeHookCreation`: Any hook resource will be deleted before the new one is created.
+* `HookSucceeded`: Will be deleted after the hook had succeeded
+* `HookFailed`: Will be deleted after a hook had failed
+* `BeforeHookCreation`: Any hook resource will be deleted before a new one is created
 
 
 ## Task {{% param sectionnumber %}}.1: Hook example
 
 In this task we're going to deploy an [example](https://github.com/acend/argocd-training-examples/tree/master/pre-post-sync-hook) which has `pre` and `post` hooks.
 
-Create the new application `argo-hook-$LAB_USER` with the following command. It will create a service, a deployment and two hooks as soon as the application is synced.
+Create the new application `argo-hook-+username+` with the following command. It will create a service, a deployment and two hooks as soon as the application is synced.
 
-* PreSync: before Job
+* PreSync: Before the Job
 * Sync: Deployment with name `pre-post-sync-hook`
-* PostSync: after Job
-
+* PostSync: After the Job
 
 ```bash
-argocd app create argo-hook-$LAB_USER --repo https://{{% param giteaUrl %}}/$LAB_USER/argocd-training-examples.git --path 'pre-post-sync-hook' --dest-server https://kubernetes.default.svc --dest-namespace $LAB_USER
+argocd app create argo-hook-+username+ --repo https://{{% param giteaUrl %}}/<github username>/argocd-training-examples.git --path 'pre-post-sync-hook' --dest-server https://kubernetes.default.svc --dest-namespace +username+
 ```
 
-Sync the application
+Sync the application:
 
 {{% details title="Hint" %}}
 ```bash
-argocd app sync argo-hook-$LAB_USER
+argocd app sync argo-hook-+username+
 ```
 {{% /details %}}
 
 And verify the deployment:
 
 ```bash
-oc get pod --namespace $LAB_USER --watch
+oc get pod --namespace +username+ --watch
 ```
 
-Or in the web UI.
+If you're more comfortable with it, you can also check the status in the respective web interfaces.
 
 
-## Task {{% param sectionnumber %}}.2: Post-hook curl (Optional)
+## Task {{% param sectionnumber %}}.2: Post-hook curl (optional)
 
 Alter the post sync hook command from `sleep` to `curl https://acend.ch` (could be used to, e.g., send a notification to a chat channel).
 The curl command is not available in the minimal `quay.io/acend/example-web-go` image. Use `quay.io/acend/example-web-python` or another image with curl installed.
 
-Edit the hook under `argocd-training-examples/pre-post-sync-hook/post-sync-job.yaml` accordingly, commit and push the changes and trigger the sync operation.
+Edit the hook in `argocd-training-examples/pre-post-sync-hook/post-sync-job.yaml` accordingly, commit and push the changes and trigger the sync operation.
 
 ```yaml
 apiVersion: batch/v1
@@ -134,6 +133,6 @@ Delete the application after you've explored the Argo CD Resources and the manag
 
 {{% details title="Hint" %}}
 ```bash
-argocd app delete argo-hook-$LAB_USER
+argocd app delete argo-hook-+username+
 ```
 {{% /details %}}
