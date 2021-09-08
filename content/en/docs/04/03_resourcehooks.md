@@ -113,7 +113,7 @@ spec:
   template:
     spec:
       containers:
-        - name: sleep
+        - name: curl
           image: quay.io/acend/example-web-python
           command: ["curl", "https://acend.ch"]
       restartPolicy: Never
