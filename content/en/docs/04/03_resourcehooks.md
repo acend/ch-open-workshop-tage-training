@@ -88,7 +88,7 @@ argocd app sync argo-hook-+username+
 And verify the deployment:
 
 ```bash
-oc get pod --namespace +username+ --watch
+kubectl get pod --namespace +username+ --watch
 ```
 
 If you're more comfortable with it, you can also check the status in the respective web interfaces.
@@ -113,15 +113,9 @@ spec:
   template:
     spec:
       containers:
-      - name: sleep
-        image: quay.io/acend/example-web-python
-        command:
-        - 'bash'
-        - '-eo'
-        - 'pipefail'
-        - '-c'
-        - >
-          curl https://acend.ch
+        - name: sleep
+          image: quay.io/acend/example-web-python
+          command: ["curl", "https://acend.ch"]
       restartPolicy: Never
   backoffLimit: 0
 ```
