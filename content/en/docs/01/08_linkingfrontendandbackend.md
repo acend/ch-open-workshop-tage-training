@@ -87,7 +87,7 @@ getent hosts apache-php
 
 The two containers are now able to talk to each other. But let's check this:
 
-If you curl to http://\<apache-php container's IP address>:8080/db.php you should get... an error!
+If you curl to http://localhost:8080/db.php you should get... an error!
 Because the mysqli extension is not found.
 
 > Question: I don't want to go to the Docker instance and install every missing extension manually. Is there a way to solve this problem?
