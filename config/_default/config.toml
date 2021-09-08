@@ -86,7 +86,7 @@ argoInfraNamespace = "argocd"
 giteaUrl = "github.com"
 techlabClusterWebConsolePrefix = "console"
 techlabClusterDomainName = "techlab.openshift.ch"
-techlabArgoCdUrl = "argocd.techlab.openshift.ch"
+techlabArgoCdUrl = "argocd.labapp.acend.ch"
 techlabGiteaUrl = "gitea.techlab.openshift.ch"
 
 [params.replaceContent]
