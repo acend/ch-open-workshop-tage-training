@@ -242,7 +242,7 @@ You could also do the changes by directly editing the Deployment:
               name: mariadb
         - name: MYSQL_URI
           value: mysql://$(MYSQL_DATABASE_USER):$(MYSQL_DATABASE_PASSWORD)@mariadb-svc/$(MYSQL_DATABASE_NAME)
-        image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+        image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         imagePullPolicy: Always
         name: example-web-python
         ...

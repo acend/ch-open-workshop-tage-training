@@ -96,7 +96,7 @@ queryParam = "u"
 defaultValue = "user0"
 href = true
 
-[params.images]
+[params.containerImages]
 acendAwesomeApp-example-web-go = "quay.io/acend/example-web-go:latest"
 acendAwesomeApp-example-web-python = "quay.io/acend/example-web-python:latest"
 nginxinc-nginx-unprivileged = "docker.io/nginxinc/nginx-unprivileged:latest"

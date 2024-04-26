@@ -33,7 +33,7 @@ spec:
         app: example-web-python
     spec:
       containers:
-      - image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+      - image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         name: example-web-python
         resources:
           limits:
@@ -377,7 +377,7 @@ Now insert the readiness probe at `.spec.template.spec.containers` above the `re
 ```yaml
 ...
      containers:
-      - image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+      - image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         imagePullPolicy: Always
         name: example-web-python
         # start to copy here
@@ -398,7 +398,7 @@ The `containers` configuration then looks like:
 ```yaml
 ...
       containers:
-      - image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+      - image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         imagePullPolicy: Always
         name: example-web-python
         readinessProbe:
@@ -429,7 +429,7 @@ The command above results in the following `readinessProbe` snippet being insert
 ```yaml
 ...
      containers:
-      - image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+      - image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         imagePullPolicy: Always
         name: example-web-python
         readinessProbe:
