@@ -174,7 +174,7 @@ As we had seen in the earlier labs, all resources like Deployments, Services, Se
 In our case we want to create a deployment including a Service for our MySQL database.
 Save this snippet as `mariadb.yaml`:
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/mariadb_lab06.yaml" >}}{{< /highlight >}}
+{{< highlight yaml >}}{{< readfile file="/content/en/docs/02/resources/mariadb_lab06.yaml" >}}{{< /highlight >}}
 
 Execute it with:
 
@@ -242,7 +242,7 @@ You could also do the changes by directly editing the Deployment:
               name: mariadb
         - name: MYSQL_URI
           value: mysql://$(MYSQL_DATABASE_USER):$(MYSQL_DATABASE_PASSWORD)@mariadb-svc/$(MYSQL_DATABASE_NAME)
-        image: {{% param "images.acendAwesomeApp-example-web-python" %}}
+        image: {{% param "containerImages.acendAwesomeApp-example-web-python" %}}
         imagePullPolicy: Always
         name: example-web-python
         ...

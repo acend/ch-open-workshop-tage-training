@@ -152,7 +152,7 @@ With the ClusterIP Service ready, we can now create the {{% onlyWhenNot openshif
 {{% onlyWhenNot openshift %}}
 In order to create the Ingress resource, we first need to create the file `ingress.yaml` and change the `host` entry to match your environment:
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/ingress_example-web-go.yaml" >}}{{< /highlight >}}
+{{< highlight yaml >}}{{< readfile file="/content/en/docs/02/resources/ingress_example-web-go.yaml" >}}{{< /highlight >}}
 
 As you see in the resource definition at `spec.rules[0].http.paths[0].backend.serviceName` we use the previously created `example-web-go` ClusterIP Service.
 
