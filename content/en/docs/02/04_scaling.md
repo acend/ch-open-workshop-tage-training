@@ -129,7 +129,7 @@ kubectl expose deployment example-web-python --type="ClusterIP" --name="example-
 
 and we need to create an Ingress to access the application:
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/ingress_example-web-python.yaml" >}}{{< /highlight >}}
+{{< highlight yaml >}}{{< readfile file="/content/en/docs/02/resources/ingress_example-web-python.yaml" >}}{{< /highlight >}}
 
 Apply this Ingress definition using, e.g., `kubectl create -f ingress.yml --namespace +username+`
 

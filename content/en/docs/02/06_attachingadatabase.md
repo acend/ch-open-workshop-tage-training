@@ -174,7 +174,7 @@ As we had seen in the earlier labs, all resources like Deployments, Services, Se
 In our case we want to create a deployment including a Service for our MySQL database.
 Save this snippet as `mariadb.yaml`:
 
-{{< highlight yaml >}}{{< readfile file="content/en/docs/02/resources/mariadb_lab06.yaml" >}}{{< /highlight >}}
+{{< highlight yaml >}}{{< readfile file="/content/en/docs/02/resources/mariadb_lab06.yaml" >}}{{< /highlight >}}
 
 Execute it with:
 
